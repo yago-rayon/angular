@@ -8,11 +8,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { CrearAutorComponent } from './componentes/crear-autor/crear-autor.component';
 import { JwtInterceptorInterceptor } from './jwt-interceptor.interceptor';
+import { RegistroComponent } from './componentes/registro/registro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrearAutorComponent
+    CrearAutorComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
