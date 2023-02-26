@@ -9,12 +9,16 @@ import { AppComponent } from './app.component';
 import { CrearAutorComponent } from './componentes/crear-autor/crear-autor.component';
 import { JwtInterceptorInterceptor } from './jwt-interceptor.interceptor';
 import { RegistroComponent } from './componentes/registro/registro.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { TablaAutoresComponent } from './componentes/tabla-autores/tabla-autores.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CrearAutorComponent,
-    RegistroComponent
+    RegistroComponent,
+    LoginComponent,
+    TablaAutoresComponent
   ],
   imports: [
     BrowserModule,

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginServiceService {
-
+  urlApi = "http://localhost:8001"
   constructor(private http: HttpClient) { }
 
-  login(nombre: string, email: string, password: string): void {
-    this.http.post(`localhost:8001/api/login_check`, { nombre, email, password })
-      .subscribe({
-        next: (response) => localStorage.setItem('jwt', JSON.stringify(response)),
-        error: (error) => console.log(error),
-      });
+  login(email: string, password: string): any {
+    return this.http.post(this.urlApi+`/api/login_check`, JSON.stringify({ "username" : email, "password" : password }));
   }
 
+  registro(data:any): any{
+    return this.http.post(this.urlApi+'/api/registro', data);
+  }
 
 }
