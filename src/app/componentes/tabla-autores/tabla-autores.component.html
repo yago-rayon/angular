@@ -1,1 +1,30 @@
-<p>tabla-autores works!</p>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+            <th scope="col" >Foto</th>
+			<th scope="col" sortable="nombre" (sort)="onSort($event)">Nombre</th>
+			<th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
+            <th scope="col" sortable="lugarNacimiento" (sort)="onSort($event)">Lugar de Nacimiento</th>
+            <th scope="col" sortable="fechaNacimiento" (sort)="onSort($event)">Fecha de Nacimiento</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let autor of autores">
+			<th scope="row">{{ autor.id }}</th>
+			<td>
+				<img
+					[src]= "autor.foto"
+					class="me-2"
+					style="width: 20px"
+                    alt="foto autor"
+				/>
+			</td>
+            <td>{{ autor.nombre }}</td>
+			<td>{{ autor.apellidos }}</td>
+			<td>{{ autor.lugarNacimiento }}</td>
+            <td>{{ autor.fechaNacimiento | date }}</td>
+		</tr>
+	</tbody>
+</table>
