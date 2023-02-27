@@ -11,6 +11,7 @@ import { LoginComponent } from './componentes/login/login.component';
 const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
   {path: 'autores', component: TablaAutoresComponent},
+  {path: 'crearAutor', component: CrearAutorComponent},
   {path: 'login', component: LoginComponent}
 ];
 

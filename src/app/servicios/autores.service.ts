@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 //interfaces
-import { Autor } from '../interfaces/Autor';
+import { Autor } from '../interfaces/autor';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,18 +14,18 @@ export class AutoresService {
   constructor(private http:HttpClient) { }
 
   consultarTodosAutores():Observable<Autor[]>{
-    return this.http.get<Autor[]>(this.urlAPI + "/autores");
+    return this.http.get<Autor[]>(this.urlAPI + "/autor");
   }
   consultarAutor(id:string):Observable<Autor>{
     return this.http.get<Autor>(this.urlAPI + "/autor/" + id);
   }
-  altaAutor(autor:Autor):Observable<any>{
-    return this.http.post<any>(this.urlAPI + "/autores",autor,this.httpOptions);
+  altaAutor(formData : FormData):Observable<any>{
+    return this.http.post<any>(this.urlAPI + "/api/autor/nuevo",formData);
   }
   editarAutor(autor:Autor):Observable<any>{
     return this.http.put(this.urlAPI + "/autores",autor,this.httpOptions)
   }
   borrarAutor(autor:Autor):Observable<any>{
-    return this.http.delete(this.urlAPI + "/autores/" + autor._id)
+    return this.http.delete(this.urlAPI + "/autores/" + autor.id)
   }
 }

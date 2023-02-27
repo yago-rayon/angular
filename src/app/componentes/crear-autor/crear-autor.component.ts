@@ -1,43 +1,75 @@
 //Utilidades
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
+//Servicios
+import { AutoresService } from 'src/app/servicios/autores.service';
+
+//Interfaces
+import { Autor } from 'src/app/interfaces/autor';
 @Component({
   selector: 'app-crear-autor',
   templateUrl: './crear-autor.component.html',
   styleUrls: ['./crear-autor.component.scss']
 })
 export class CrearAutorComponent {
-  form: FormGroup;
-  constructor(public fb: FormBuilder, private http: HttpClient) {
-    this.form = this.fb.group({
-      nombre: [''],
-      foto: [null],
+  titulo= "ALTA autor";
+  autor: Autor = {
+    "id":"",
+    "nombre":"",
+    "apellidos":"",
+    "fechaNacimiento": "",
+    "lugarNacimiento":"",
+    "biografia": "",
+    "foto": ""
+  };
+  fotoASubir: File | null = null;
+  constructor(private servicioAutores: AutoresService,
+              private router: Router,
+              private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe( parametro => {
+        if (parametro['id']) {
+          this.titulo = "EDITAR autor";
+          this.servicioAutores.consultarAutor(parametro['id'])
+                             .subscribe(autor => this.autor = autor);
+        }
     });
   }
 
-  ngOnInit() {}
-  subirFichero(event:any) {
-    if((event.target as HTMLInputElement).files != null) 
-    {
-      const fichero = (event.target as HTMLInputElement).files![0];
-    this.form.patchValue({
-      foto: fichero,
-    });
-    this.form.get('foto')!.updateValueAndValidity();
+  darAlta(){
+    let formData: FormData = new FormData();
+    formData.append('nombre',this.autor.nombre);
+    formData.append('apellidos',this.autor.apellidos);
+    formData.append('fechaNacimiento',this.autor.fechaNacimiento);
+    formData.append('lugarNacimiento',this.autor.lugarNacimiento);
+    formData.append('biografia',this.autor.biografia);
+    if(this.fotoASubir != null){
+      formData.append('foto',this.fotoASubir , this.fotoASubir.name);
+    }else{
+      formData.append('foto','placeholder.jpg');
     }
-    
+    this.servicioAutores.altaAutor(formData)
+                      .subscribe(respuesta => alert(respuesta.status));
   }
-  enviarFormulario() {
-    let formData: any = new FormData();
-    formData.append('nombre', this.form.get('nombre')!.value);
-    formData.append('foto', this.form.get('foto')!.value);
-    this.http
-      .post('http://localhost:8001/api/autor/nuevo', formData)
-      .subscribe({
-        next: (response) => console.log(response),
-        error: (error) => console.log(error),
-      });
+
+  editar(){
+    this.servicioAutores.editarAutor(this.autor).subscribe(respuesta => {
+       if (respuesta.status === 'success'){
+         alert("Modificación realizada");
+         this.router.navigate(['/autores']);
+       } else {
+         alert("Modificación no realizada")
+       }
+    })
+  }
+  cancelar(){
+    this.router.navigate(['/tablaAutores']);
+  }
+  subirFoto($event: Event){
+    this.fotoASubir  = ($event.currentTarget as HTMLInputElement).files![0];
   }
 }

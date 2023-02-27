@@ -29,7 +29,8 @@ export class LoginComponent {
     this.servicioLogin.login(email,password).subscribe({
       next: (response:any) => {
         localStorage.setItem('jwt', JSON.stringify(response));
-        this.router.navigate(['/tablaAutores']);
+        console.log(localStorage.getItem('jwt'));
+        // this.router.navigate(['/tablaAutores']);
       },
       error: (error:any) => {alert("error")},
     });

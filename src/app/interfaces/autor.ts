@@ -1,9 +1,9 @@
 export interface Autor{
-    _id: string;
+    id: string;
     nombre: string;
     apellidos: string;
     foto: string;
     biografia: string;
-    fechaNacimiento: Date;
+    fechaNacimiento: string;
     lugarNacimiento: string;
   }

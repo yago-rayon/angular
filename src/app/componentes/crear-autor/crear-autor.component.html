@@ -1,13 +1,28 @@
-<div class="container">
-    <form [formGroup]="form" (ngSubmit)="enviarFormulario()">
-        <div class="form-group">
-            <input type="file" name= "fichero" (change)="subirFichero($event)">
-        </div>
-        <div class="form-group input-group-lg">
-            <input class="form-control" placeholder="Nombre" formControlName="nombre">
-        </div>
-        <div class="form-group">
-            <button class="btn btn-danger btn-block btn-lg">Create</button>
-        </div>
-    </form>
+<div class="formularioAlta">
+    <h3>{{titulo}}</h3>
+    <p> Nombre:
+        <input type="text" [(ngModel)]="autor.nombre" placeholder="nombre">
+    </p>
+    <p> Apellidos:
+        <input type="text" [(ngModel)]="autor.apellidos" placeholder="apellidos">
+    </p>
+    <p> Lugar de Nacimiento:
+        <input type="text" [(ngModel)]="autor.lugarNacimiento" placeholder="Lugar de Nacimiento">
+    </p>
+    <p> Fecha de Nacimiento:
+        <input type="date" [(ngModel)]="autor.fechaNacimiento" placeholder="Fecha de Nacimiento">
+    </p>
+    <p> Biografia:
+        <textarea [(ngModel)]="autor.biografia" placeholder="Biografía"></textarea>
+    </p>
+    <p> Foto:
+        <input type="file"
+           id="file"
+           (change)="subirFoto($event)">
+    </p>
+    <p>
+        <button type="button" (click)="darAlta()" *ngIf="autor.id==''">ALTA</button>
+        <button type="button" (click)="editar()" *ngIf="autor.id!=''">ACTUALIZAR</button>
+        <button type="button" (click)="cancelar()">CANCELAR</button>
+    </p>
 </div>

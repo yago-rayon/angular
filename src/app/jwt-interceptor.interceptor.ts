@@ -13,11 +13,12 @@ export class JwtInterceptorInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let jwt = localStorage.getItem('jwt');
+    
+    let jwt: any = JSON.parse(localStorage.getItem('jwt') || '');
     if (jwt) {
         request = request.clone({
             setHeaders: {
-                Authorization: `Bearer ${jwt}`
+                Authorization: `Bearer ${jwt.token}`
             }
         });
     }

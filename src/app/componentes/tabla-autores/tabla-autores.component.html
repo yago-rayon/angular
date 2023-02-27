@@ -2,29 +2,28 @@
 	<thead>
 		<tr>
 			<th scope="col">#</th>
-            <th scope="col" >Foto</th>
-			<th scope="col" sortable="nombre" (sort)="onSort($event)">Nombre</th>
-			<th scope="col" sortable="apellidos" (sort)="onSort($event)">Apellidos</th>
-            <th scope="col" sortable="lugarNacimiento" (sort)="onSort($event)">Lugar de Nacimiento</th>
-            <th scope="col" sortable="fechaNacimiento" (sort)="onSort($event)">Fecha de Nacimiento</th>
-			
+			<th scope="col">Foto</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Apellidos</th>
+			<th scope="col">Fecha Nacimiento</th>
+			<th scope="col">Lugar Nacimiento</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let autor of autores">
-			<th scope="row">{{ autor.id }}</th>
+		<tr *ngFor="let autor of autores; index as i">
+			<th scope="row">{{ i + 1 }}</th>
 			<td>
 				<img
-					[src]= "autor.foto"
+					[src]="'../../assets/imagenes/' + autor.foto"
 					class="me-2"
 					style="width: 20px"
-                    alt="foto autor"
+					alt="Foto de autor"
 				/>
 			</td>
-            <td>{{ autor.nombre }}</td>
+			<td>{{ autor.nombre }}</td>
 			<td>{{ autor.apellidos }}</td>
+			<td>{{ autor.fechaNacimiento }}</td>
 			<td>{{ autor.lugarNacimiento }}</td>
-            <td>{{ autor.fechaNacimiento | date }}</td>
 		</tr>
 	</tbody>
 </table>
