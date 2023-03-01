@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]="['/autores']">Libreria</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor03" [ngbCollapse]="isCollapsed">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login<span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/registro']">Registro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/crearAutor']" routerLinkActive="router-link-active" >Crear Autor</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
