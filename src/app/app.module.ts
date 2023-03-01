@@ -16,6 +16,7 @@ import { TablaAutoresComponent } from './componentes/tabla-autores/tabla-autores
 import { MenuComponent } from './componentes/menu/menu.component';
 //Servicios
 import { AutoresService } from './servicios/autores.service';
+import { TablaLibrosComponent } from './componentes/tabla-libros/tabla-libros.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AutoresService } from './servicios/autores.service';
     RegistroComponent,
     LoginComponent,
     TablaAutoresComponent,
-    MenuComponent
+    MenuComponent,
+    TablaLibrosComponent
   ],
   imports: [
     BrowserModule,

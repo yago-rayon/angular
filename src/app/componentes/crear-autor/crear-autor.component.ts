@@ -67,7 +67,7 @@ export class CrearAutorComponent {
     if(this.fotoASubir != null){
       formData.append('foto',this.fotoASubir , this.fotoASubir.name);
     }else{
-      formData.append('foto','placeholder.jpg');
+      formData.append('foto',this.autor.foto);
     }
     this.servicioAutores.editarAutor(formData).subscribe(respuesta => {
        if (respuesta.status){
