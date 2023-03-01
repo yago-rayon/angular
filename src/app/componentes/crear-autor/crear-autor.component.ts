@@ -57,8 +57,20 @@ export class CrearAutorComponent {
   }
 
   editar(){
-    this.servicioAutores.editarAutor(this.autor).subscribe(respuesta => {
-       if (respuesta.status === 'success'){
+    let formData: FormData = new FormData();
+    formData.append('id',this.autor.id);
+    formData.append('nombre',this.autor.nombre);
+    formData.append('apellidos',this.autor.apellidos);
+    formData.append('fechaNacimiento',this.autor.fechaNacimiento);
+    formData.append('lugarNacimiento',this.autor.lugarNacimiento);
+    formData.append('biografia',this.autor.biografia);
+    if(this.fotoASubir != null){
+      formData.append('foto',this.fotoASubir , this.fotoASubir.name);
+    }else{
+      formData.append('foto','placeholder.jpg');
+    }
+    this.servicioAutores.editarAutor(formData).subscribe(respuesta => {
+       if (respuesta.status){
          alert("Modificación realizada");
          this.router.navigate(['/autores']);
        } else {
@@ -67,7 +79,7 @@ export class CrearAutorComponent {
     })
   }
   cancelar(){
-    this.router.navigate(['/tablaAutores']);
+    this.router.navigate(['/autores']);
   }
   subirFoto($event: Event){
     this.fotoASubir  = ($event.currentTarget as HTMLInputElement).files![0];

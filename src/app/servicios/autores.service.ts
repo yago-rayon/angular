@@ -22,8 +22,8 @@ export class AutoresService {
   altaAutor(formData : FormData):Observable<any>{
     return this.http.post<any>(this.urlAPI + "/api/autor/nuevo",formData);
   }
-  editarAutor(autor:Autor):Observable<any>{
-    return this.http.put(this.urlAPI + "/api/autor/editar",autor,this.httpOptions)
+  editarAutor(formData: FormData):Observable<any>{
+    return this.http.post(this.urlAPI + "/api/autor/editar",formData)
   }
   borrarAutor(autor:Autor):Observable<any>{
     return this.http.delete(this.urlAPI + "/api/autores/" + autor.id)

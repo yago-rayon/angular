@@ -48,10 +48,7 @@ export class TablaAutoresComponent {
   autores: Autor[]=[];
 
   constructor(private servicioAutores:AutoresService,private router: Router){}
-
-
-
-
+  
   ngOnInit(){
     this.consultarAutores();
   }
