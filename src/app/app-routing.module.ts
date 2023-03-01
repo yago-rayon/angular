@@ -12,7 +12,9 @@ const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
   {path: 'autores', component: TablaAutoresComponent},
   {path: 'crearAutor', component: CrearAutorComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'crearAutor/:id', component: CrearAutorComponent},
+  {path: 'login', component: LoginComponent},
+  {path: '', redirectTo:'autores',pathMatch:'full'}
 ];
 
 @NgModule({

@@ -33,7 +33,7 @@ export class CrearAutorComponent {
   ngOnInit(): void {
     this.route.params.subscribe( parametro => {
         if (parametro['id']) {
-          this.titulo = "EDITAR autor";
+          this.titulo = "EDITAR AUTOR";
           this.servicioAutores.consultarAutor(parametro['id'])
                              .subscribe(autor => this.autor = autor);
         }
