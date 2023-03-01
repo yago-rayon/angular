@@ -26,6 +26,6 @@ export class AutoresService {
     return this.http.post(this.urlAPI + "/api/autor/editar",formData)
   }
   borrarAutor(autor:Autor):Observable<any>{
-    return this.http.delete(this.urlAPI + "/api/autores/" + autor.id)
+    return this.http.delete(this.urlAPI + "/api/autor/borrar/" + autor.id)
   }
 }

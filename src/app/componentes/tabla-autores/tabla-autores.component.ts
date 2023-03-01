@@ -48,7 +48,7 @@ export class TablaAutoresComponent {
   autores: Autor[]=[];
 
   constructor(private servicioAutores:AutoresService,private router: Router){}
-  
+
   ngOnInit(){
     this.consultarAutores();
   }
@@ -59,11 +59,11 @@ export class TablaAutoresComponent {
   borrar(autor:Autor){
     this.servicioAutores.borrarAutor(autor)
                        .subscribe (respuesta=>{
-                        if (respuesta.status=="success"){
+                        if (respuesta.status=="borrado"){
                           alert("autor borrado");
                           this.consultarAutores();
                         } else {
-                          alert("No se ha podido borrar el autor");
+                          alert("No se ha podido borrar el autor. Error:"+respuesta.status);
                         }
                        });
   }
