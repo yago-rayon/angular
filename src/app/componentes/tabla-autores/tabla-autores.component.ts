@@ -58,7 +58,6 @@ export class TablaAutoresComponent {
   consultarAutores(){
     this.servicioAutores.consultarTodosAutores()
                        .subscribe( datos => {this.autores = datos; console.log(this.autores)});
-   
   }
   borrar(autor:Autor){
     this.servicioAutores.borrarAutor(autor)

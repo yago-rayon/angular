@@ -13,8 +13,10 @@ export class JwtInterceptorInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    
-    let jwt: any = JSON.parse(localStorage.getItem('jwt') || '');
+    let jwt : any = '';
+    if(localStorage.getItem('jwt')){
+      jwt= JSON.parse(localStorage.getItem('jwt') || '');
+    }
     if (jwt) {
         request = request.clone({
             setHeaders: {

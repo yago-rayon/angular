@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LoginServiceService } from 'src/app/servicios/login-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -11,7 +12,9 @@ import { LoginServiceService } from 'src/app/servicios/login-service.service';
 })
 export class RegistroComponent {
   form: FormGroup;
-  constructor(public fb: FormBuilder, private http: HttpClient, private loginService: LoginServiceService) {
+  constructor(public fb: FormBuilder, private http: HttpClient, 
+    private loginService: LoginServiceService,
+    private router: Router) {
     this.form = this.fb.group({
       email: [''],
       nombre: [''],
@@ -33,7 +36,7 @@ export class RegistroComponent {
     this.loginService.registro(data).subscribe({
       next: (response:any) => {
         if(response.message == "Registro Exitoso"){
-          alert("exito");
+          this.router.navigate(['/login']);
         }else{
           alert("error");
         }

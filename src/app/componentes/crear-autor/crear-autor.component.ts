@@ -53,7 +53,7 @@ export class CrearAutorComponent {
       formData.append('foto','placeholder.jpg');
     }
     this.servicioAutores.altaAutor(formData)
-                      .subscribe(respuesta => alert(respuesta.status));
+                      .subscribe(respuesta => alert(JSON.stringify(respuesta)));
   }
 
   editar(){
