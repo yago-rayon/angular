@@ -14,8 +14,8 @@ export class JwtInterceptorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let jwt : any = '';
-    if(localStorage.getItem('jwt')){
-      jwt= JSON.parse(localStorage.getItem('jwt') || '');
+    if(sessionStorage.getItem('jwt')){
+      jwt= JSON.parse(sessionStorage.getItem('jwt') || '');
     }
     if (jwt) {
         request = request.clone({

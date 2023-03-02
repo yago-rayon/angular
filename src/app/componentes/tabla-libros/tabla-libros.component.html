@@ -2,11 +2,11 @@
 	<thead>
 		<tr>
 			<th scope="col">#</th>
-			<th scope="col">Foto</th>
-			<th scope="col">Nombre</th>
-			<th scope="col">Apellidos</th>
-			<th scope="col">Fecha Nacimiento</th>
-			<th scope="col">Lugar Nacimiento</th>
+			<th scope="col">Imagen</th>
+			<th scope="col">ISBN</th>
+			<th scope="col">Titulo</th>
+			<th scope="col">Precio</th>
+			<th scope="col">Autor</th>
 			<th scope="col">Editar</th>
 			<th scope="col">Borrar</th>
 		</tr>
@@ -22,9 +22,9 @@
 					alt="Foto de libro"
 				/>
 			</td>
+			<td>{{ libro.isbn }}</td>
 			<td>{{ libro.titulo }}</td>
 			<td>{{ libro.precio }}</td>
-			<td>{{ libro.isbn }}</td>
 			<td>{{ libro.nombreAutor }}</td>
 			<td><button type='button' class="btn btn-primary"
 				[routerLink]="['/crearLibro/',libro.id]" routerLinkActive="router-link-active"  >Editar</button> </td>

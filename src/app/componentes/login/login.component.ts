@@ -28,7 +28,7 @@ export class LoginComponent {
 
     this.servicioLogin.login(email,password).subscribe({
       next: (response:any) => {
-        localStorage.setItem('jwt', JSON.stringify(response));
+        sessionStorage.setItem('jwt', JSON.stringify(response));
         this.router.navigate(['/autores']);
       },
       error: (error:any) => {alert("error")},

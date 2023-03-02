@@ -11,6 +11,9 @@ export class LibrosService {
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+  private httpOptions2 = {
+    headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
+  };
   constructor(private http:HttpClient) { }
 
   consultarTodosLibros():Observable<Libro[]>{
@@ -20,10 +23,10 @@ export class LibrosService {
     return this.http.get<Libro>(this.urlAPI + "/libro/" + id);
   }
   altaLibro(formData : FormData):Observable<any>{
-    return this.http.post<any>(this.urlAPI + "/api/libro/nuevo",formData);
+    return this.http.post<any>(this.urlAPI + "/api/libro/nuevo",formData,this.httpOptions2);
   }
   editarLibro(formData: FormData):Observable<any>{
-    return this.http.post(this.urlAPI + "/api/libro/editar",formData)
+    return this.http.post(this.urlAPI + "/api/libro/editar",formData, this.httpOptions2)
   }
   borrarLibro(libro:Libro):Observable<any>{
     return this.http.delete(this.urlAPI + "/api/libro/borrar/" + libro.id)
