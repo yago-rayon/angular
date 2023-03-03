@@ -1,29 +1,35 @@
-<nav class="navbar navbar-expand-lg bg-light">
-    <a class="navbar-brand" [routerLink]="['/libros']">Libreria</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarColor03" [ngbCollapse]="isCollapsed">
-      <ul class="navbar-nav mr-auto">
-        <li *ngIf="!logueado" class="nav-item">
-          <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login<span class="sr-only"></span></a>
-        </li>
-        <li *ngIf="!logueado" class="nav-item">
-          <a class="nav-link" [routerLink]="['/registro']">Registro</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/autores']" routerLinkActive="router-link-active" >Autores</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/crearAutor']" routerLinkActive="router-link-active" >Crear Autor</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/libros']" routerLinkActive="router-link-active" >Libros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/crearLibro']" routerLinkActive="router-link-active" >Crear Libro</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]="['/libros']">Libreria</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+    aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation"
+    (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor03" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto mx-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/autores']" routerLinkActive="router-link-active">Autores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/crearAutor']" routerLinkActive="router-link-active">Crear Autor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/libros']" routerLinkActive="router-link-active">Libros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/crearLibro']" routerLinkActive="router-link-active">Crear Libro</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-0">
+      <li *ngIf="!logueado" class="nav-item">
+        <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active">Login<span
+            class="sr-only"></span></a>
+      </li>
+      <li *ngIf="!logueado" class="nav-item">
+        <a class="nav-link" [routerLink]="['/registro']">Registro</a>
+      </li>
+    </ul>
+  </div>
+</nav>

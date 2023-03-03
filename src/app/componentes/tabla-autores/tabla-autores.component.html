@@ -1,35 +1,37 @@
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th scope="col">#</th>
-			<th scope="col">Foto</th>
-			<th scope="col">Nombre</th>
-			<th scope="col">Apellidos</th>
-			<th scope="col">Fecha Nacimiento</th>
-			<th scope="col">Lugar Nacimiento</th>
-			<th scope="col">Editar</th>
-			<th scope="col">Borrar</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let autor of autores; index as i">
-			<th scope="row">{{ i + 1 }}</th>
-			<td>
-				<img
-					[src]="'../../assets/imagenes/' + autor.foto"
-					class="me-2"
-					style="width: 20px"
-					alt="Foto de autor"
-				/>
-			</td>
-			<td>{{ autor.nombre }}</td>
-			<td>{{ autor.apellidos }}</td>
-			<td>{{ autor.fechaNacimiento }}</td>
-			<td>{{ autor.lugarNacimiento }}</td>
-			<td><button type='button' class="btn btn-primary"
-				[routerLink]="['/crearAutor/',autor.id]" routerLinkActive="router-link-active"  >Editar</button> </td>
-				<td><button type='button' class="btn btn-primary"
-					(click)="borrar(autor)" >Borrar</button> </td>
-		</tr>
-	</tbody>
-</table>
+<div class="container col-8">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Foto</th>
+				<th scope="col" (click)="ordenar('nombre')" role='button'>Nombre</th>
+				<th scope="col" (click)="ordenar('apellidos')" role='button'>Apellidos</th>
+				<th scope="col" (click)="ordenar('fechaNacimiento')" role='button'>Fecha Nacimiento</th>
+				<th scope="col" (click)="ordenar('lugarNacimiento')" role='button'>Lugar Nacimiento</th>
+				<th scope="col" *ngIf="logueado">Editar</th>
+				<th scope="col" *ngIf="logueado">Borrar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let autor of autores; index as i">
+				<th scope="row">{{ i + 1 }}</th>
+				<td>
+					<img
+						[src]="'../../assets/imagenes/' + autor.foto"
+						class="me-2"
+						style="width: 30px"
+						alt="Foto de autor"
+					/>
+				</td>
+				<td>{{ autor.nombre }}</td>
+				<td>{{ autor.apellidos }}</td>
+				<td>{{ autor.fechaNacimiento }}</td>
+				<td>{{ autor.lugarNacimiento }}</td>
+				<td><button type='button' class="btn btn-primary" *ngIf="logueado"
+					[routerLink]="['/crearAutor/',autor.id]" routerLinkActive="router-link-active"  >Editar</button> </td>
+					<td><button type='button' class="btn btn-primary" *ngIf="logueado"
+						(click)="borrar(autor)" >Borrar</button> </td>
+			</tr>
+		</tbody>
+	</table>
+</div>

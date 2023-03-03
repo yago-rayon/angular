@@ -19,7 +19,7 @@ import { Libro } from 'src/app/interfaces/libro';
   styleUrls: ['./crear-libro.component.scss']
 })
 export class CrearLibroComponent {
-
+  logueado : boolean = false;
   titulo = "ALTA libro";
   libro: Libro = {
     "id": "",
@@ -42,6 +42,9 @@ export class CrearLibroComponent {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('jwt')){
+      this.logueado=true;
+    }
     this.route.params.subscribe(parametro => {
       if (parametro['id']) {
         this.titulo = "EDITAR LIBRO";

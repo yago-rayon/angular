@@ -16,6 +16,7 @@ import { Autor } from 'src/app/interfaces/autor';
 })
 export class CrearAutorComponent {
   titulo = "ALTA autor";
+  logueado :boolean =false;
   autor: Autor = {
     "id": "",
     "nombre": "",
@@ -31,13 +32,18 @@ export class CrearAutorComponent {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('jwt')){
+      this.logueado=true;
+    }
     this.route.params.subscribe(parametro => {
       if (parametro['id']) {
         this.titulo = "EDITAR AUTOR";
         this.servicioAutores.consultarAutor(parametro['id'])
           .subscribe(autor => this.autor = autor);
       }
+      
     });
+    
   }
 
   darAlta() {

@@ -15,11 +15,25 @@ import { Autor } from '../../interfaces/autor';
 })
 export class TablaAutoresComponent {
   autores: Autor[] = [];
-
+  logueado: boolean = false;
   constructor(private servicioAutores: AutoresService, private router: Router) { }
 
   ngOnInit() {
+    if (localStorage.getItem('jwt')){
+      this.logueado=true;
+    }
     this.consultarAutores();
+  }
+
+  ordenar(atributo:string){
+    if(atributo=='fechaNacimiento'){
+      this.autores = this.autores.sort(
+        (a:any,b:any)=>new Date(a[atributo]).getTime()-new Date(b[atributo]).getTime()
+        );
+    }
+    this.autores = this.autores.sort(
+      (a:any,b:any)=>a[atributo].localeCompare(b[atributo])
+      );
   }
   consultarAutores() {
     this.servicioAutores.consultarTodosAutores()
