@@ -29,14 +29,25 @@ export class TablaLibrosComponent {
   }
   borrar(libro: Libro) {
     this.servicioLibros.borrarLibro(libro)
-      .subscribe(respuesta => {
-        if (respuesta.status == "borrado") {
-          alert("libro borrado");
-          this.consultarLibros();
-        } else {
-          alert("No se ha podido borrar el libro. Error:" + respuesta.status);
-        }
-      });
+      .subscribe(
+        respuesta => {
+          if (respuesta.code == 201) {
+            alert("Autor Borrado");
+            this.ngOnInit;
+            // this.router.navigate(['/autores']);
+          } else {
+            alert("Ha ocurrido algún error al rellenar los campos");
+          }
+        },
+        error => {
+          if (error.status == 401) {
+            localStorage.removeItem('jwt');
+            alert("Token expirado o inválido");
+            this.router.navigate(['/login']);
+          } else {
+            alert(error.message);
+          }
+        });
   }
   editar(libro: Libro) {
     this.router.navigate(['/editarLibro/' + libro.id]);

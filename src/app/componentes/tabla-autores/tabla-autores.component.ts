@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { DecimalPipe, NgFor } from '@angular/common';
 import { Router } from '@angular/router';
 //Servicios
@@ -14,29 +14,40 @@ import { Autor } from '../../interfaces/autor';
   styleUrls: ['./tabla-autores.component.scss']
 })
 export class TablaAutoresComponent {
-  autores: Autor[]=[];
+  autores: Autor[] = [];
 
-  constructor(private servicioAutores:AutoresService,private router: Router){}
+  constructor(private servicioAutores: AutoresService, private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.consultarAutores();
   }
-  consultarAutores(){
+  consultarAutores() {
     this.servicioAutores.consultarTodosAutores()
-                       .subscribe( datos => {this.autores = datos;});
+      .subscribe(datos => { this.autores = datos; });
   }
-  borrar(autor:Autor){
+  borrar(autor: Autor) {
     this.servicioAutores.borrarAutor(autor)
-                       .subscribe (respuesta=>{
-                        if (respuesta.status=="borrado"){
-                          alert("autor borrado");
-                          this.consultarAutores();
-                        } else {
-                          alert("No se ha podido borrar el autor. Error:"+respuesta.status);
-                        }
-                       });
+      .subscribe(
+        respuesta => {
+          if (respuesta.code == 201) {
+            alert("Autor Borrado");
+            this.ngOnInit;
+            // this.router.navigate(['/autores']);
+          } else {
+            alert("Ha ocurrido algún error al rellenar los campos");
+          }
+        },
+        error => {
+          if (error.status == 401) {
+            localStorage.removeItem('jwt');
+            alert("Token expirado o inválido");
+            this.router.navigate(['/login']);
+          } else {
+            alert(error.message);
+          }
+        });
   }
-  editar(autor:Autor){
-    this.router.navigate(['/editarAutor/'+autor.id]);
+  editar(autor: Autor) {
+    this.router.navigate(['/editarAutor/' + autor.id]);
   }
 }
