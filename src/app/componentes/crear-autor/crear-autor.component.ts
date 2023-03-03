@@ -69,6 +69,8 @@ export class CrearAutorComponent {
             localStorage.removeItem('jwt');
             alert("Token expirado o inválido");
             this.router.navigate(['/login']);
+          }else{
+            alert(error.message);
           }
         })
       ;
@@ -102,6 +104,8 @@ export class CrearAutorComponent {
           localStorage.removeItem('jwt');
           alert("Token expirado o inválido");
           this.router.navigate(['/login']);
+        }else{
+          alert(error.message);
         }
       })
   }

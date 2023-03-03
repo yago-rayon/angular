@@ -87,6 +87,8 @@ export class CrearLibroComponent {
           localStorage.removeItem('jwt');
           alert("Token expirado o inválido");
           this.router.navigate(['/login']);
+        }else{
+          alert(error.message);
         }
       })
   }
@@ -125,6 +127,8 @@ export class CrearLibroComponent {
           localStorage.removeItem('jwt');
           alert("Token expirado o inválido");
           this.router.navigate(['/login']);
+        }else{
+          alert(error.message);
         }
       })
   }

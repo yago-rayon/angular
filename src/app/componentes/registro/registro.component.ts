@@ -38,10 +38,10 @@ export class RegistroComponent {
         if(response.message == "Registro Exitoso"){
           this.router.navigate(['/login']);
         }else{
-          alert("error");
+          alert("Error al rellenar los campos");
         }
       },
-      error: (error:any) => console.log(error),
+      error: (error:any) => {console.log(error); alert ("Usuario no existe")},
     });
   }
 }
