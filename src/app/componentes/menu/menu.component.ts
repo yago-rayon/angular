@@ -12,8 +12,8 @@ export class MenuComponent {
   
   logueado : boolean = false;
   ngOnInit(){
-    intervalo =setInterval(this.comprobarLogin, 15000);
     this.comprobarLogin();
+    let intervalo =setInterval(this.comprobarLogin, 15000);
   }
   comprobarLogin(){
     if (localStorage.getItem('jwt')){
