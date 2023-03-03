@@ -15,7 +15,7 @@
     <div class="form-group p-3">
         <label for="inputAutor">Autor</label>
         <select class="form-select" [(ngModel)]="libro.idAutor" id="inputAutor">
-            <option *ngFor="let autor of autores; index as i" [value]="autor.id">{{autor.nombre}}</option>
+            <option *ngFor="let autor of autores; index as i" [value]="autor.id">{{autor.nombre + ' ' + autor.apellidos}}</option>
           </select>
     </div>
     

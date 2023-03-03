@@ -27,9 +27,9 @@
 				<td>{{ autor.apellidos }}</td>
 				<td>{{ autor.fechaNacimiento }}</td>
 				<td>{{ autor.lugarNacimiento }}</td>
-				<td><button type='button' class="btn btn-primary" *ngIf="logueado"
+				<td *ngIf="logueado"><button type='button' class="btn btn-primary"
 					[routerLink]="['/crearAutor/',autor.id]" routerLinkActive="router-link-active"  >Editar</button> </td>
-					<td><button type='button' class="btn btn-primary" *ngIf="logueado"
+					<td *ngIf="logueado"><button type='button' class="btn btn-primary" 
 						(click)="borrar(autor)" >Borrar</button> </td>
 			</tr>
 		</tbody>

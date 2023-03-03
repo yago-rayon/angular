@@ -14,13 +14,25 @@ import { Libro } from '../../interfaces/libro';
 })
 export class TablaLibrosComponent {
   libros: Libro[] = [];
-
+  logueado:boolean = false;
   constructor(private servicioLibros: LibrosService,
     private router: Router) { }
 
   ngOnInit() {
+    if (localStorage.getItem('jwt')){
+      this.logueado=true;
+    }
     this.consultarLibros();
-
+  }
+  ordenar(atributo:string){
+    if(atributo=='fechaNacimiento'){
+      this.libros = this.libros.sort(
+        (a:any,b:any)=>new Date(a[atributo]).getTime()-new Date(b[atributo]).getTime()
+        );
+    }
+    this.libros = this.libros.sort(
+      (a:any,b:any)=>a[atributo].localeCompare(b[atributo])
+      );
   }
 
   consultarLibros() {
@@ -32,9 +44,8 @@ export class TablaLibrosComponent {
       .subscribe(
         respuesta => {
           if (respuesta.code == 201) {
-            alert("Autor Borrado");
-            this.ngOnInit;
-            // this.router.navigate(['/autores']);
+            alert("Libro Borrado");
+            this.router.navigate(['/libros']);
           } else {
             alert("Ha ocurrido algún error al rellenar los campos");
           }
@@ -50,6 +61,6 @@ export class TablaLibrosComponent {
         });
   }
   editar(libro: Libro) {
-    this.router.navigate(['/editarLibro/' + libro.id]);
+    this.router.navigate(['/crearLibro/' + libro.id]);
   }
 }
