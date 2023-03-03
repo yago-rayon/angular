@@ -15,73 +15,101 @@ import { Autor } from 'src/app/interfaces/autor';
   styleUrls: ['./crear-autor.component.scss']
 })
 export class CrearAutorComponent {
-  titulo= "ALTA autor";
+  titulo = "ALTA autor";
   autor: Autor = {
-    "id":"",
-    "nombre":"",
-    "apellidos":"",
+    "id": "",
+    "nombre": "",
+    "apellidos": "",
     "fechaNacimiento": "",
-    "lugarNacimiento":"",
+    "lugarNacimiento": "",
     "biografia": "",
     "foto": ""
   };
   fotoASubir: File | null = null;
   constructor(private servicioAutores: AutoresService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe( parametro => {
-        if (parametro['id']) {
-          this.titulo = "EDITAR AUTOR";
-          this.servicioAutores.consultarAutor(parametro['id'])
-                             .subscribe(autor => this.autor = autor);
-        }
+    this.route.params.subscribe(parametro => {
+      if (parametro['id']) {
+        this.titulo = "EDITAR AUTOR";
+        this.servicioAutores.consultarAutor(parametro['id'])
+          .subscribe(autor => this.autor = autor);
+      }
     });
   }
 
-  darAlta(){
+  darAlta() {
     let formData: FormData = new FormData();
-    formData.append('nombre',this.autor.nombre);
-    formData.append('apellidos',this.autor.apellidos);
-    formData.append('fechaNacimiento',this.autor.fechaNacimiento);
-    formData.append('lugarNacimiento',this.autor.lugarNacimiento);
-    formData.append('biografia',this.autor.biografia);
-    if(this.fotoASubir != null){
-      formData.append('foto',this.fotoASubir , this.fotoASubir.name);
-    }else{
-      formData.append('foto','placeholder.jpg');
+    formData.append('nombre', this.autor.nombre);
+    formData.append('apellidos', this.autor.apellidos);
+    formData.append('fechaNacimiento', this.autor.fechaNacimiento);
+    formData.append('lugarNacimiento', this.autor.lugarNacimiento);
+    formData.append('biografia', this.autor.biografia);
+    if (this.fotoASubir != null) {
+      formData.append('foto', this.fotoASubir, this.fotoASubir.name);
+      this.router.navigate(['/autores']);
+
+    } else {
+      formData.append('foto', 'placeholder.jpg');
     }
     this.servicioAutores.altaAutor(formData)
-                      .subscribe(respuesta => alert(JSON.stringify(respuesta)));
+      .subscribe(
+        respuesta => {
+          if (respuesta.code == 201) {
+            alert("Autor Creado");
+            this.router.navigate(['/autores']);
+          } else {
+            alert("Ha ocurrido algún error al rellenar los campos");
+          }
+        },
+        error => {
+          if (error.status == 401) {
+            localStorage.removeItem('jwt');
+            alert("Token expirado o inválido");
+            this.router.navigate(['/login']);
+          }
+        })
+      ;
   }
 
-  editar(){
+  editar() {
     let formData: FormData = new FormData();
-    formData.append('id',this.autor.id);
-    formData.append('nombre',this.autor.nombre);
-    formData.append('apellidos',this.autor.apellidos);
-    formData.append('fechaNacimiento',this.autor.fechaNacimiento);
-    formData.append('lugarNacimiento',this.autor.lugarNacimiento);
-    formData.append('biografia',this.autor.biografia);
-    if(this.fotoASubir != null){
-      formData.append('foto',this.fotoASubir , this.fotoASubir.name);
-    }else{
-      formData.append('foto',this.autor.foto);
+    formData.append('id', this.autor.id);
+    formData.append('nombre', this.autor.nombre);
+    formData.append('apellidos', this.autor.apellidos);
+    formData.append('fechaNacimiento', this.autor.fechaNacimiento);
+    formData.append('lugarNacimiento', this.autor.lugarNacimiento);
+    formData.append('biografia', this.autor.biografia);
+    if (this.fotoASubir != null) {
+      formData.append('foto', this.fotoASubir, this.fotoASubir.name);
+    } else {
+      formData.append('foto', this.autor.foto);
     }
-    this.servicioAutores.editarAutor(formData).subscribe(respuesta => {
-       if (respuesta.status){
-         alert("Modificación realizada");
-         this.router.navigate(['/autores']);
-       } else {
-         alert("Modificación no realizada")
-       }
-    })
+    this.servicioAutores.editarAutor(formData)
+    .subscribe(
+      respuesta => {
+        if (respuesta.code == 201) {
+          alert("Autor Modificado");
+          this.router.navigate(['/autores']);
+        } else {
+          alert("Ha ocurrido algún error al rellenar los campos");
+        }
+      },
+      error => {
+        if (error.status == 401) {
+          localStorage.removeItem('jwt');
+          alert("Token expirado o inválido");
+          this.router.navigate(['/login']);
+        }
+      })
   }
-  cancelar(){
+  cancelar() {
     this.router.navigate(['/autores']);
   }
-  subirFoto($event: Event){
-    this.fotoASubir  = ($event.currentTarget as HTMLInputElement).files![0];
+  subirFoto($event: Event) {
+    this.fotoASubir = ($event.currentTarget as HTMLInputElement).files![0];
+    console.log(this.fotoASubir);
   }
 }

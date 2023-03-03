@@ -73,7 +73,22 @@ export class CrearLibroComponent {
       formData.append('archivo', this.libro.archivo);
     }
     this.servicioLibros.altaLibro(formData)
-      .subscribe(respuesta => alert(JSON.stringify(respuesta)));
+    .subscribe(
+      respuesta => {
+        if (respuesta.code == 201) {
+          alert("Libro Creado");
+          this.router.navigate(['/libros']);
+        } else {
+          alert("Ha ocurrido algún error al rellenar los campos");
+        }
+      },
+      error => {
+        if (error.status == 401) {
+          localStorage.removeItem('jwt');
+          alert("Token expirado o inválido");
+          this.router.navigate(['/login']);
+        }
+      })
   }
 
   editar() {
@@ -95,14 +110,23 @@ export class CrearLibroComponent {
       formData.append('imagen', this.libro.imagen);
     }
     
-    this.servicioLibros.editarLibro(formData).subscribe(respuesta => {
-      if (respuesta.status) {
-        alert("Modificación realizada");
-        this.router.navigate(['/libros']);
-      } else {
-        alert("Modificación no realizada")
-      }
-    })
+    this.servicioLibros.editarLibro(formData)
+    .subscribe(
+      respuesta => {
+        if (respuesta.code == 201) {
+          alert("Libro Modificado");
+          this.router.navigate(['/libros']);
+        } else {
+          alert("Ha ocurrido algún error al rellenar los campos");
+        }
+      },
+      error => {
+        if (error.status == 401) {
+          localStorage.removeItem('jwt');
+          alert("Token expirado o inválido");
+          this.router.navigate(['/login']);
+        }
+      })
   }
   cancelar() {
     this.router.navigate(['/libros']);

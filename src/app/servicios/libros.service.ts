@@ -23,10 +23,10 @@ export class LibrosService {
     return this.http.get<Libro>(this.urlAPI + "/libro/" + id);
   }
   altaLibro(formData : FormData):Observable<any>{
-    return this.http.post<any>(this.urlAPI + "/api/libro/nuevo",formData,this.httpOptions2);
+    return this.http.post<any>(this.urlAPI + "/api/libro/nuevo",formData);
   }
   editarLibro(formData: FormData):Observable<any>{
-    return this.http.post(this.urlAPI + "/api/libro/editar",formData, this.httpOptions2)
+    return this.http.post(this.urlAPI + "/api/libro/editar",formData)
   }
   borrarLibro(libro:Libro):Observable<any>{
     return this.http.delete(this.urlAPI + "/api/libro/borrar/" + libro.id)

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -8,4 +8,11 @@ import { Component } from '@angular/core';
 export class MenuComponent {
   name = 'Angular';
   public isCollapsed = true;
+  logueado : boolean = false;
+  
+  ngOnInit(){
+    if (localStorage.getItem('jwt')){
+      this.logueado=true;
+    }
+  }
 }
