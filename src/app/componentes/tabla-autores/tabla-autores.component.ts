@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 //Servicios
 import { AutoresService } from 'src/app/servicios/autores.service';
 //Interfaces
-import { Autor } from '../../interfaces/autor';
+import { Autor } from '../../interfaces/usuario';
 
 
 

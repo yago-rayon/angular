@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { AutoresService } from 'src/app/servicios/autores.service';
 
 //Interfaces
-import { Autor } from 'src/app/interfaces/autor';
+import { Autor } from 'src/app/interfaces/usuario';
 @Component({
   selector: 'app-crear-autor',
   templateUrl: './crear-autor.component.html',

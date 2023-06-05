@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 //Servicios
 import { LibrosService } from 'src/app/servicios/libros.service';
 //Interfaces
-import { Libro } from '../../interfaces/libro';
+import { Libro } from '../../interfaces/novela';
 
 
 @Component({

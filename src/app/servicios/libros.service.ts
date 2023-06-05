@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 //interfaces
-import { Libro } from '../interfaces/libro';
+import { Libro } from '../interfaces/novela';
 @Injectable({
   providedIn: 'root'
 })
 export class LibrosService {
-  urlAPI="http://localhost:8001";
+  urlAPI="http://localhost:3001";
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

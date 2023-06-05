@@ -9,8 +9,8 @@ import { DecimalPipe, NgFor } from '@angular/common';
 import { AutoresService } from 'src/app/servicios/autores.service';
 import { LibrosService } from 'src/app/servicios/libros.service';
 //Interfaces
-import { Autor } from 'src/app/interfaces/autor';
-import { Libro } from 'src/app/interfaces/libro';
+import { Autor } from 'src/app/interfaces/usuario';
+import { Libro } from 'src/app/interfaces/novela';
 
 
 @Component({
