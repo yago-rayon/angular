@@ -1,13 +1,43 @@
-<div class="container">
-    <form [formGroup]="form" (ngSubmit)="enviarFormulario()">
+<!-- <div class="container">
+    <form [(ngModel)]="datos" (ngSubmit)="enviarFormulario()">
         <div class="form-group input-group-lg">
-            <input class="form-control" placeholder="Email" formControlName="email">
+            <input [(ngModel)]="datos.email" #ctrl="ngModel" class="form-control" placeholder="Email" name="email">
         </div>
         <div class="form-group input-group-lg">
-            <input class="form-control" type="password"  placeholder="Contraseña" formControlName="password">
+            <input [(ngModel)]="datos.password" class="form-control" type="password" placeholder="Contraseña" name="password">
         </div>
         <div class="form-group">
-            <button class="btn btn-danger btn-block btn-lg">Login</button>
+            <button class="btn btn-terciary btn-block btn-lg">Login</button>
         </div>
     </form>
-</div>
+</div> -->
+<app-menu></app-menu>
+<section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-transparent" style="min-height: 100vh; background-size: cover;">
+    <div class="container-fluid">
+      <div class="row  justify-content-center align-items-center d-flex-row text-center h-100">
+        <div class="col-12 col-md-6 col-lg-4  h-100 ">
+          <div class="card shadow" style="min-height:400px; min-width:400px">
+            <div class="card-body mx-auto my-5">
+              <h5 class="card-title mt-3 text-center my-3">Galaxia de Libros</h5>
+              <p class="text-center">LOGIN DE USUARIO</p>
+              <form (ngSubmit)="enviarFormulario()">
+                <div class="form-group input-group">
+                  <input name="email" class="form-control" placeholder="Email"  (ngModel)="email" [ngModelOptions]="{standalone: true}" (ngModelChange)="email = $event" >
+                </div>
+                <div class="form-group input-group">
+                  <input (ngModel)="password" [ngModelOptions]="{standalone: true}" (ngModelChange)="password = $event" class="form-control" type="password" placeholder="Contraseña" name="password">
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block my-3"> Login </button>
+                </div>
+                <p class="text-center">¿No tienes cuenta?
+                  <a href="">Regístrate</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ </section>
+ <app-modal-error [errorLogin]="errorLogin" (pasarCerrarModal)="errorLogin = $event" *ngIf="errorLogin"></app-modal-error>

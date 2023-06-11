@@ -1,8 +1,15 @@
 export interface Novela{
-    id: string;
+    _id: string;
+    autor: Object;
     titulo: string;
     descripcion: string;
-    imagen: string;
-    autor: Object;
+    generos: Array<string>;
+    etiquetas: Array<string>;
+    fechaCreacion: Date;
+    fechaUltimoCapitulo: Date;
+    numeroCapiutlos: number;
     listaCapitulos: Array<Object>;
+    puntuacion: number;
+    visitas: number;
+    imagen: string;
   }

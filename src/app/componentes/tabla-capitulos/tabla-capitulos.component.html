@@ -1,0 +1,39 @@
+<section class="mx-auto">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="col-md-11 col-lg-11 mx-auto">
+            <table class="table table-sm table-hover mx-auto">
+                <thead class="border border-bottom">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" colspan="2">Titulo del Capítulo</th>
+                        <th scope="col" colspan="2" (click)="filtrarLista(ordenLista)"><a href="javascript:">Publicado</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="listaFiltrada">
+                        <ng-container *ngFor="let capitulo of listaPaginada">
+                            <tr>
+                                <th scope="row">{{capitulo?.numero}}</th>
+                                <td (click)="redirigirCapitulo(capitulo?.numero)" colspan="2">
+                                    <a href="javascript:">{{capitulo?.titulo}}</a>
+                                </td>
+                                <td colspan="2" class="text-right" >{{capitulo?.fechaCreacion | fechaHastaAhora}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+            <div>
+                <nav aria-label="Paginación de capítulos align-end">
+                    <ul class="pagination">
+                        <ng-container *ngFor="let pagina of listaPaginas; first as esPrimero; last as esUltimo">
+                            <li class="page-item secondary" *ngIf="paginaActual>1 && esPrimero" (click)="paginarLista((paginaActual-1))"><button class="page-link"> < </button></li>
+                            <li class="page-item secondary" [ngClass]="{'active': pagina==paginaActual}" (click)="paginarLista(pagina)"><button class="page-link">{{pagina}}</button></li>
+                            <li class="page-item bg-secondary" *ngIf="paginaActual<listaPaginas?.length && esUltimo" (click)="paginarLista((paginaActual+1))"><button class="page-link"> > </button></li>
+                        </ng-container>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>

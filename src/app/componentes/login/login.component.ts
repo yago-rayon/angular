@@ -1,37 +1,34 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule, NgModel } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 //Servicios
-import { LoginServiceService } from 'src/app/servicios/login-service.service';
+import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    providers: [NgModel]
 })
 export class LoginComponent {
-  form: FormGroup;
-  constructor(public fb: FormBuilder, private http: HttpClient, private servicioLogin: LoginServiceService,
-    private router: Router) {
-    this.form = this.fb.group({
-      email: [''],
-      password:['']
-    });
-  }
+    email: string = 'email';
+    password: string = 'password';
+    errorLogin:any = null;
+    constructor(public fb: FormBuilder, private http: HttpClient, private servicioAuth: AuthService, private ngModel: NgModel,
+        private router: Router, private reactiveFormsModule: ReactiveFormsModule, private formsModule: FormsModule) {
+    }
 
-  ngOnInit() {}
+    ngOnInit() {}
 
-  enviarFormulario() {
-    let email: string = this.form.get('email')!.value;
-    let password: string = this.form.get('password')!.value;
-
-    this.servicioLogin.login(email,password).subscribe({
-      next: (response:any) => {
-        localStorage.setItem('jwt', JSON.stringify(response));
-        this.router.navigate(['/autores']);
-      },
-      error: (error:any) => {alert("error")},
-    });
-  }
+    enviarFormulario() {
+        console.log(this.email, this.password)
+        this.servicioAuth.login(this.email,this.password).subscribe({
+            next: (response: any) => {
+                localStorage.setItem('jwt', JSON.stringify(response));
+                this.router.navigate(['/novela']);
+            },
+            error: (error: any) => { this.errorLogin = error.error.error },
+        });
+    }
 }
