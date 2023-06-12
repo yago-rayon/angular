@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NovelasService } from 'src/app/servicios/novelas.service';
 import { Constantes } from 'src/app/constantes/constantes';
+import { Usuario } from 'src/app/interfaces/usuario';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  name = 'Angular';
+  @Input() usuario: Usuario;
   public isCollapsed = true;
   tituloABuscar : string;
   logueado : boolean = false;
