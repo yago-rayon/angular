@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular'
+//Pipes
+import { FechaHastaAhoraPipe } from './pipes/fecha-hasta-ahora.pipe';
 
 //Servicios
 import { UsuariosService } from './servicios/usuarios.service';
@@ -13,16 +16,17 @@ import { NovelasService } from './servicios/novelas.service';
 
 //Componentes
 import { AppComponent } from './app.component';
-
 import { JwtInterceptorInterceptor } from './jwt-interceptor.interceptor';
-import { LoginComponent } from './componentes/login/login.component';
+import { LoginComponent } from './paginas/login/login.component';
 import { MenuComponent } from './componentes/menu/menu.component';
 import { NovelaComponent } from './paginas/novela/novela.component';
 import { BarraBusquedaComponent } from './componentes/barra-busqueda/barra-busqueda.component';
 import { TablaCapitulosComponent } from './componentes/tabla-capitulos/tabla-capitulos.component';
-//Pipes
-import { FechaHastaAhoraPipe } from './pipes/fecha-hasta-ahora.pipe';
+import { RegistroComponent } from './paginas/registro/registro.component';
 import { ModalErrorComponent } from './componentes/modal-error/modal-error.component';
+import { AltaNovelaComponent } from './paginas/alta-novela/alta-novela.component';
+import { CapituloComponent } from './paginas/capitulo/capitulo.component';
+
 
 
 @NgModule({
@@ -34,7 +38,10 @@ import { ModalErrorComponent } from './componentes/modal-error/modal-error.compo
     BarraBusquedaComponent,
     TablaCapitulosComponent,
     FechaHastaAhoraPipe,
-    ModalErrorComponent
+    ModalErrorComponent,
+    AltaNovelaComponent,
+    RegistroComponent,
+    CapituloComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +52,7 @@ import { ModalErrorComponent } from './componentes/modal-error/modal-error.compo
     FormsModule,
     NgbModule,
     CommonModule,
+    CKEditorModule,
     AppRoutingModule
   ],
   providers: [

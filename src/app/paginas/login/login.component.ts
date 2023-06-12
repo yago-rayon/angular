@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 //Servicios
 import { AuthService } from 'src/app/servicios/auth.service';
-
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -14,21 +13,32 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class LoginComponent {
     email: string = 'email';
     password: string = 'password';
-    errorLogin:any = null;
+    errorLogin: any = null;
+    subscripcionUsuario: any;
     constructor(public fb: FormBuilder, private http: HttpClient, private servicioAuth: AuthService, private ngModel: NgModel,
         private router: Router, private reactiveFormsModule: ReactiveFormsModule, private formsModule: FormsModule) {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.subscripcionUsuario = this.servicioAuth.misDatos().subscribe((data) => {
+            console.log(data.usuario);
+            if(data.usuario){
+                console.log('Llego el usuario')
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.subscripcionUsuario.unsubscribe();
+    }
 
     enviarFormulario() {
-        console.log(this.email, this.password)
-        this.servicioAuth.login(this.email,this.password).subscribe({
+        this.servicioAuth.login(this.email, this.password).subscribe({
             next: (response: any) => {
-                localStorage.setItem('jwt', JSON.stringify(response));
+                localStorage.setItem('jwt', JSON.stringify(response.data));
                 this.router.navigate(['/novela']);
             },
-            error: (error: any) => { this.errorLogin = error.error.error },
+            error: (data: any) => { this.errorLogin = data.error.error },
         });
     }
 }

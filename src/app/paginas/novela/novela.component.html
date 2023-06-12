@@ -9,20 +9,31 @@
                     <li class="breadcrumb-item active" aria-current="page"><a href="#">{{novela?.titulo}}</a></li>
                 </ol>
             </nav>
-            <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-lg-6"><img class="card-img-top mb-5 mb-md-0"
+            <div class="row gx-4 gx-lg-5">
+                <div class="col-lg-5"><img class="card-img-top mb-5 mb-md-0"
                         src="{{directorioImagenes}}{{novela?.imagen}}" alt="Portada de {{novela?.titulo}}" /></div>
-                <div class="col-lg-6">
+                <div class="col-lg-7">
                     <div class="small mb-1">Escrito por {{novela?.autor?.autorNickname}}</div>
-                    <h3 class="display-5 fw-bolder">{{novela?.titulo}}</h3>
-                    <div class="fs-5 mb-5">
-                        <button class="btn btn-outline-secondary flex-shrink-0 btn-sm" type="button">Seguir Novela
-                        </button>
-                        <span> {{novela?.visitas}} visitas</span>
+                    <h5 class="display-6 fw-bolder">{{novela?.titulo}}</h5>
+                    <div class="fs-5 mb-3">
+                        <ng-container *ngIf="usuario">
+                            <button class="btn flex-shrink-0 btn-outline-secondary btn-sm" type="button"
+                                *ngIf="!novelaSeguida" (click)="seguirNovela()">Seguir Novela
+                            </button>
+                            <button class="btn flex-shrink-0 btn-secondary btn-sm" type="button" *ngIf="novelaSeguida"
+                                (click)="seguirNovela()">Siguiendo
+                            </button>
+                            </ng-container>
+                            <span> {{novela?.visitas}} visitas</span>
                     </div>
                     <div class="d-flex">
                         <ng-container *ngFor="let genero of novela?.generos">
                             <span class="badge bg-secondary">{{genero}}</span>&nbsp;
+                        </ng-container>
+                    </div>
+                    <div class="row my-3">
+                        <ng-container *ngFor="let etiqueta of novela?.etiquetas">
+                            <span class="badge bg-primary col-xl-4 col-md-5 my-1">{{etiqueta}}</span>&nbsp;
                         </ng-container>
                     </div>
                 </div>
@@ -30,19 +41,21 @@
         </div>
     </section>
     <section>
-
         <div class="container px-4 px-lg-5">
             <div class="card">
                 <div class="card-header bg-secondary text-white">
                     <h4>Sinopsis</h4>
                 </div>
                 <div class="card-body">
-                    <p class="card-text" *ngIf="descripcionRecortada; else descripcionOriginal">{{descripcionRecortada}}
-                    </p>
-                    <ng-template class="card-text" #descripcionOriginal>{{novela?.descripcion}}</ng-template>
+                    <div class="card-text" *ngIf="descripcionRecortada; else descripcionOriginal" [innerHTML]="descripcionRecortada">
+                    </div>
+                    <ng-template #descripcionOriginal>
+                        <div class="card-text" [innerHTML]="novela?.descripcion">
+                        </div>
+                    </ng-template>
                     <div>
                         <button class="btn btn-terciary flex-shrink-0 btn-sm"
-                            *ngIf="descripcionRecortada && novela?.descripcion?.length>10; else botonMenos"
+                            *ngIf="descripcionRecortada && novela?.descripcion?.length>200; else botonMenos"
                             (click)="mostrarDescripcion()">Mostrar más</button>
                         <ng-template #botonMenos>
                             <button class="btn btn-terciary flex-shrink-0 btn-sm" *ngIf="!descripcionRecortada"
@@ -52,7 +65,6 @@
                 </div>
             </div>
         </div>
-
     </section>
     <app-tabla-capitulos *ngIf="listaCapitulos" [listaCapitulos]="listaCapitulos"
         [_idNovela]="novela?._id"></app-tabla-capitulos>

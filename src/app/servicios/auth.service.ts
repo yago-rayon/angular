@@ -13,10 +13,10 @@ export class AuthService {
     return this.http.post(this.urlApi+'/auth/login', { "email" : email, "password" : password });
   }
 
-  registro(data:any): any{
-    return this.http.post(this.urlApi+'/auth/registro', { "nickname": data.nickname, "email": data.email, "password": data.password });
+  registro(nickname: string, email:string, password:string): any{
+    return this.http.post(this.urlApi+'/auth/registro', { "nickname": nickname, "email": email, "password": password });
   }
   misDatos(): any{
-    return this.http.get(this.urlApi+'/misDatos');
+    return this.http.get(this.urlApi+'/auth/misDatos');
   }
 }

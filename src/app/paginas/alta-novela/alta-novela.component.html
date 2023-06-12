@@ -1,0 +1,91 @@
+<app-menu></app-menu>
+<div class="container bg-white" style="min-height: 100vh; background-size: cover;">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Index</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{usuario?.nickname}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Crear Novela</a></li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <section>
+
+        <div class="container px-4 px-lg-5">
+            <div class="container mx-auto my-2 row">
+                <div class="row">
+                    <div class="col col-lg-4"><img class="card-img-top mb-5 mb-md-0"
+                            [src]="directorioImagenes+novela.imagen" alt="Portada de {{novela?.titulo}}" /></div>
+                    <div class="col col-lg-8 card">
+                        <div class="card-header bg-secondary text-white">
+                            <h4>Portada</h4>
+                        </div>
+                        <p>Todas las imágenes serán redimensionadas a
+                            400x600 pixeles. Solo se admiten formato jpg, jpeg o png</p>
+                        <div class="form-group input-group">
+                            <input (change)="subirImagen($event)" name="imagen" class="form-control bg-secondary text-white" type="file"
+                                placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card my-2">
+                <div class="card-header bg-secondary text-white">
+                    <h4>Titulo</h4>
+                </div>
+                <div class="form-group input-group">
+                    <input  required minlength="4" maxlength="40" name="titulo" class="form-control" placeholder="" [(ngModel)]="novela.titulo"
+                        (ngModelChange)="novela.titulo = $event" #titulo="ngModel">
+                        
+                </div>
+            </div>
+            <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="alert alert-terciary">
+                El titulo debe tener entre 4 y 30 caracteres
+            </div>
+            <div class="card my-2">
+                <div class="card-header bg-secondary text-white">
+                    <h4>Descripción</h4>
+                </div>
+                <ckeditor [editor]="Editor" [(ngModel)]="novela.descripcion"></ckeditor>
+            </div>
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h4>Géneros <small>(Máximo 4)</small></h4>
+                </div>
+                <div class="row">
+                    <ng-container *ngFor="let genero of listaGeneros; let indice = index">
+                        <div class="d-grid col-6 col-md-4 col-lg-3">
+                            <input type="checkbox" class="btn-check" [(ngModel)]="novela.generos[genero]"
+                                id="btn-check-{{indice}}" autocomplete="off" value="{{genero}}" name="{{genero}}" (change)="maxGeneros($event)">
+                            <label class="btn btn-outline-primary btn-block" for="btn-check-{{indice}}"
+                                >{{genero}}</label>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="card my-2">
+                <div class="card-header bg-secondary text-white">
+                    <h4>Etiquetas <small>(Máximo 8)</small></h4>
+                </div>
+                <div class="row">
+                    <ng-container *ngFor="let etiqueta of listaEtiquetas; let indice = index">
+                        <div class="d-grid col-6 col-md-4 col-xl-3">
+                            <input type="checkbox" class="btn-check" [(ngModel)]="novela.etiquetas[etiqueta]"
+                                id="btn-check-j{{indice}}" autocomplete="off" value="{{etiqueta}}" name="{{etiqueta}}" (change)="maxEtiquetas()">
+                            <label class="btn btn-outline-primary btn-block" for="btn-check-j{{indice}}"
+                                >{{etiqueta}}</label>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="card my-2 col-3 mx-auto">
+                <button class="btn flex-shrink-0 btn-terciary btn-lg" type="button"
+                                (click)="enviarNovela()">Enviar
+                            </button>
+            </div>
+        </div>
+    </section>
+
+</div>

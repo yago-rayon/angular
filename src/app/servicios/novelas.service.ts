@@ -36,8 +36,11 @@ export class NovelasService {
     queryParams.append('direccion', data.direccion || 'desc');
     return this.http.get(this.urlAPI + "/novela/",{params: queryParams});
   }
-  consultarNovela(id:string):Observable<Novela>{
-    return this.http.get<Novela>(this.urlAPI + "/novela/" + id);
+  consultarNovela(id:string):Observable<any>{
+    return this.http.get<any>(this.urlAPI + "/novela/" + id);
+  }
+  seguirNovela(id:string):Observable<any>{
+    return this.http.put<any>(this.urlAPI + "/novela/seguir/" + id,'');
   }
   consultarNovelaTitulo(titulo:string):Observable<any>{
     return this.http.get<any>(this.urlAPI + "/novela/" + titulo);
@@ -45,7 +48,31 @@ export class NovelasService {
   consultarNovelasSeguidas(): Observable<any>{
     return this.http.get(this.urlAPI + "/novela/seguidas");
   }
-  altaNovela(formData : FormData):Observable<any>{
+  altaNovela(novela:Novela, imagenASubir: File):Observable<any>{
+    let formData: FormData = new FormData();
+    formData.append('titulo', novela.titulo);
+    formData.append('descripcion', novela.descripcion);
+    let listaGeneros = [];
+    for(const genero in novela.generos){
+      if(novela.generos[genero]){
+        listaGeneros.push(genero);
+      }
+    }
+    formData.append('generos', JSON.stringify(listaGeneros));
+    let listaEtiquetas: Array<any>=[];
+    for(const etiqueta in novela.etiquetas){
+      if(novela.etiquetas[etiqueta]){
+        listaEtiquetas.push(etiqueta);
+      }
+    }
+    formData.append('etiquetas', JSON.stringify(listaEtiquetas));
+    formData.append('descripcion', novela.descripcion.toString());
+    
+    if (imagenASubir) {
+      formData.append('imagen', imagenASubir, imagenASubir.name);
+    } else {
+      formData.append('imagen', novela.imagen);
+    }
     return this.http.post(this.urlAPI + "/novela/nueva",formData);
   }
   editarNovela(formData: FormData, idNovela:any):Observable<any>{

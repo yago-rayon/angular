@@ -2,25 +2,33 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="col-md-11 col-lg-11 mx-auto">
             <table class="table table-sm table-hover mx-auto">
-                <thead class="border border-bottom">
+                <thead class="border border-bottom bg-secondary text-white">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col" colspan="2">Titulo del Capítulo</th>
-                        <th scope="col" colspan="2" (click)="filtrarLista(ordenLista)"><a href="javascript:">Publicado</a></th>
+                        <th scope="col" colspan="2" (click)="filtrarLista(ordenLista)"><a class="text-white" href="javascript:">Publicado</a></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngIf="listaFiltrada">
+                    <ng-container *ngIf="listaFiltrada.length > 0;else sinDatos">
                         <ng-container *ngFor="let capitulo of listaPaginada">
                             <tr>
                                 <th scope="row">{{capitulo?.numero}}</th>
-                                <td (click)="redirigirCapitulo(capitulo?.numero)" colspan="2">
+                                <td (click)="redirigirCapitulo(capitulo?.numero)" colspan="3">
                                     <a href="javascript:">{{capitulo?.titulo}}</a>
                                 </td>
-                                <td colspan="2" class="text-right" >{{capitulo?.fechaCreacion | fechaHastaAhora}}</td>
+                                <td colspan="1" class="text-right" >{{capitulo?.fechaCreacion | fechaHastaAhora}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
+                    <ng-template #sinDatos>
+                        <tr>
+                            <td colspan="5">
+                                <h5 class="text-center">La novela no tiene capítulos</h5>
+                            </td>
+
+                        </tr>
+                    </ng-template>
                 </tbody>
             </table>
             <div>

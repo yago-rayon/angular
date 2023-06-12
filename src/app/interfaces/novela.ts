@@ -3,11 +3,11 @@ export interface Novela{
     autor: Object;
     titulo: string;
     descripcion: string;
-    generos: Array<string>;
+    generos: Array<any>;
     etiquetas: Array<string>;
     fechaCreacion: Date;
     fechaUltimoCapitulo: Date;
-    numeroCapiutlos: number;
+    numeroCapitulos: number;
     listaCapitulos: Array<Object>;
     puntuacion: number;
     visitas: number;

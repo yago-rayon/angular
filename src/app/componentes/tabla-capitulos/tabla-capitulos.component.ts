@@ -34,7 +34,7 @@ export class TablaCapitulosComponent {
     if (!this.listaPaginas) { this.listaPaginas = [1] }
   }
   redirigirCapitulo(numero) {
-    this.router.navigate(['novela', this._idNovela, numero])
+    this.router.navigate(['novela', this._idNovela,'capitulo',numero])
   }
   paginarLista(pagina: number) {
     this.paginaActual = pagina;

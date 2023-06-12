@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NovelasService } from 'src/app/servicios/novelas.service';
+import { Constantes } from 'src/app/constantes/constantes';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -10,6 +11,7 @@ export class MenuComponent {
   public isCollapsed = true;
   tituloABuscar : string;
   logueado : boolean = false;
+  directorioImagenes = Constantes.directorioImagenes;
   constructor(servicioNovela : NovelasService){}
   ngOnInit(){
     this.comprobarLogin();
