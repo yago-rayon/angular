@@ -1,4 +1,5 @@
-<app-menu></app-menu>
+<app-menu *ngIf="usuario" [usuario]="usuario"></app-menu>
+<app-menu *ngIf="!usuario"></app-menu>
 <div class="container bg-white" style="min-height: 100vh; background-size: cover;">
     <section class="py-5">
         <div class="container px-4 px-lg-5">
@@ -25,8 +26,8 @@
                         <p>Todas las imágenes serán redimensionadas a
                             400x600 pixeles. Solo se admiten formato jpg, jpeg o png</p>
                         <div class="form-group input-group">
-                            <input (change)="subirImagen($event)" name="imagen" class="form-control bg-secondary text-white" type="file"
-                                placeholder="">
+                            <input (change)="subirImagen($event)" name="imagen"
+                                class="form-control bg-secondary text-white" type="file" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -36,9 +37,9 @@
                     <h4>Titulo</h4>
                 </div>
                 <div class="form-group input-group">
-                    <input  required minlength="4" maxlength="40" name="titulo" class="form-control" placeholder="" [(ngModel)]="novela.titulo"
-                        (ngModelChange)="novela.titulo = $event" #titulo="ngModel">
-                        
+                    <input required minlength="4" maxlength="40" name="titulo" class="form-control" placeholder=""
+                        [(ngModel)]="novela.titulo" (ngModelChange)="novela.titulo = $event" #titulo="ngModel">
+
                 </div>
             </div>
             <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="alert alert-terciary">
@@ -58,9 +59,10 @@
                     <ng-container *ngFor="let genero of listaGeneros; let indice = index">
                         <div class="d-grid col-6 col-md-4 col-lg-3">
                             <input type="checkbox" class="btn-check" [(ngModel)]="novela.generos[genero]"
-                                id="btn-check-{{indice}}" autocomplete="off" value="{{genero}}" name="{{genero}}" (change)="maxGeneros($event)">
-                            <label class="btn btn-outline-primary btn-block" for="btn-check-{{indice}}"
-                                >{{genero}}</label>
+                                id="btn-check-{{indice}}" autocomplete="off" value="{{genero}}" name="{{genero}}"
+                                (change)="maxGeneros($event)">
+                            <label class="btn btn-outline-primary btn-block"
+                                for="btn-check-{{indice}}">{{genero}}</label>
                         </div>
                     </ng-container>
                 </div>
@@ -73,19 +75,24 @@
                     <ng-container *ngFor="let etiqueta of listaEtiquetas; let indice = index">
                         <div class="d-grid col-6 col-md-4 col-xl-3">
                             <input type="checkbox" class="btn-check" [(ngModel)]="novela.etiquetas[etiqueta]"
-                                id="btn-check-j{{indice}}" autocomplete="off" value="{{etiqueta}}" name="{{etiqueta}}" (change)="maxEtiquetas()">
-                            <label class="btn btn-outline-primary btn-block" for="btn-check-j{{indice}}"
-                                >{{etiqueta}}</label>
+                                id="btn-check-j{{indice}}" autocomplete="off" value="{{etiqueta}}" name="{{etiqueta}}"
+                                (change)="maxEtiquetas()">
+                            <label class="btn btn-outline-primary btn-block"
+                                for="btn-check-j{{indice}}">{{etiqueta}}</label>
                         </div>
                     </ng-container>
                 </div>
             </div>
             <div class="card my-2 col-3 mx-auto">
-                <button class="btn flex-shrink-0 btn-terciary btn-lg" type="button"
-                                (click)="enviarNovela()">Enviar
-                            </button>
+                <button *ngIf="!_id" class="btn flex-shrink-0 btn-terciary btn-lg" type="button"
+                    (click)="enviarNovela()">Enviar
+                </button>
+                <button *ngIf="_id" class="btn flex-shrink-0 btn-terciary btn-lg" type="button"
+                    (click)="modificarNovela()">Modificar
+                </button>
             </div>
         </div>
     </section>
 
 </div>
+<app-boton-scroll></app-boton-scroll>

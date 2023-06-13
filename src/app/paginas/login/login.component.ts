@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class LoginComponent {
     email: string = 'email';
     password: string = 'password';
-    errorLogin: any = null;
+    errorLogin: any = false;
     subscripcionUsuario: any;
     constructor(public fb: FormBuilder, private http: HttpClient, private servicioAuth: AuthService, private ngModel: NgModel,
         private router: Router, private reactiveFormsModule: ReactiveFormsModule, private formsModule: FormsModule) {
@@ -21,9 +21,8 @@ export class LoginComponent {
 
     ngOnInit() {
         this.subscripcionUsuario = this.servicioAuth.misDatos().subscribe((data) => {
-            console.log(data.usuario);
             if(data.usuario){
-                console.log('Llego el usuario')
+                this.router.navigate(['/inicio']);
             }
         });
     }
@@ -36,9 +35,9 @@ export class LoginComponent {
         this.servicioAuth.login(this.email, this.password).subscribe({
             next: (response: any) => {
                 localStorage.setItem('jwt', JSON.stringify(response.data));
-                this.router.navigate(['/novela']);
+                this.router.navigate(['/inicio']);
             },
-            error: (data: any) => { this.errorLogin = data.error.error },
+            error: (data: any) => { this.errorLogin = true },
         });
     }
 }

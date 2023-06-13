@@ -1,0 +1,39 @@
+<section class="mx-auto">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="col-md-11 col-lg-11 mx-auto">
+            <table class="table table-sm table-hover mx-auto">
+                <thead class="border border-bottom bg-secondary text-white">
+                    <tr>
+                        <th scope="col" colspan="3">Portada</th>
+                        <th scope="col" colspan="3">Datos de novela</th>
+                        <th scope="col" colspan="3" (click)="filtrarLista(ordenLista)"><a class="text-white"
+                                href="javascript:">Publicado</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="listaFiltrada.length > 0;else sinDatos">
+                        <ng-container *ngFor="let novela of listaFiltrada">
+                            <tr>
+                                <td [routerLink]="['/novela',novela?._id]" colspan="3">
+                                    <img class="" src="{{directorioImagenes}}{{novela?.imagen}}"
+                                        alt="Portada de {{novela?.titulo}}" />
+                                </td>
+                                <td [routerLink]="['/novela',novela?._id]" colspan="3">
+                                    <a href="javascript:">{{novela?.titulo}}</a>
+                                </td>
+                                <td colspan="1" class="text-right">{{novela?.fechaCreacion | fechaHastaAhora}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #sinDatos>
+                        <tr>
+                            <td colspan="5">
+                                <h5 class="text-center">No hay datos para esta búsqueda</h5>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

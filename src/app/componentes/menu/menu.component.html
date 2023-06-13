@@ -1,34 +1,50 @@
 <nav class="navbar navbar-expand-xxl navbar-dark bg-dark" aria-label="menu">
-  <div class="container px-4 px-lg-5">
-      <a class="navbar-brand" href="./index.html"><img src="{{directorioImagenes}}/Logo-GDL-500x1000.png" width="150px"
-              alt="Galaxia de Libros"></a>
-      <button class="navbar-toggler btn-outline-secondary" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-              <li class="nav-item"><a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="./tienda.html">Tienda</a></li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                      data-bs-toggle="dropdown" aria-expanded="false">Identifícate</a>
-                  <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="../html/login.html">Login</a></li>
-                      <li><a class="dropdown-item" href="../html/registro.html">Registro</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="./mapaWeb.html">MapaWeb</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="./accesibilidad.html">Accesibilidad</a>
-              </li>
-          </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" name="tituloABuscar" placeholder="Buscar" aria-label="Search" [(ngModel)]="tituloABuscar">
-            <button class="btn btn-terciary" type="submit" (click)="buscarNovela(tituloABuscar)">Buscar</button>
-          </form>
-      </div>
-  </div>
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" routerLink="/inicio"><img src="{{directorioImagenes}}/Logo-GDL-500x1000.png"
+                width="150px" alt="Galaxia de Libros"></a>
+        <button class="navbar-toggler btn-outline-secondary" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Novelas</a>
+                    <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" routerLink="/novelas">Buscador</a></li>
+                        <li><a class="dropdown-item" routerLink="/novelas/populares">Populares</a></li>
+                        <li><a class="dropdown-item" routerLink="/novelas/recientes">Recientes</a></li>
+                    </ul>
+                </li>
+                <li *ngIf="!logueado" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Identifícate</a>
+                    <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" routerLink="/login">Login</a></li>
+                        <li><a class="dropdown-item" routerLink="/registro">Registro</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/mapaWeb">MapaWeb</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/accesibilidad">Accesibilidad</a>
+                </li>
+                <li *ngIf="logueado" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">{{usuario?.nickname}}</a>
+                    <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" routerLink="/login">Mis novelas seguidas</a></li>
+                        <li><a class="dropdown-item" routerLink="/registro">Mis novelas publicadas</a></li>
+                        <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" name="tituloABuscar" placeholder="Buscar"
+                    aria-label="Search" [(ngModel)]="tituloABuscar">
+                <button class="btn btn-terciary" type="submit" (click)="buscarNovela()">Buscar</button>
+            </form>
+        </div>
+    </div>
 </nav>

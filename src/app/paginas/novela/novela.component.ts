@@ -1,13 +1,8 @@
 //Utilidades
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { DecimalPipe, NgFor } from '@angular/common';
-import { OnInit } from '@angular/core';
 import { Constantes } from 'src/app/constantes/constantes';
 //Servicios
-import { UsuariosService } from 'src/app/servicios/usuarios.service';
 import { NovelasService } from 'src/app/servicios/novelas.service';
 //Interfaces
 import { Usuario } from 'src/app/interfaces/usuario';
@@ -23,19 +18,20 @@ export class NovelaComponent {
   datos: any;
   novela: any;
   autor: any;
+  esAutor:boolean = false;
   novelaSeguida: boolean;
-  usuario: Usuario;
+  usuario: Usuario = null;
   _id: string;
   subscripcion: any;
   listaCapitulos: Array<any>;
-  directorioImagenes:string;
-  descripcionRecortada: string;
+  directorioImagenes:string = Constantes.directorioImagenes;
+  directorioIconos:string = Constantes.directorioIconos;
+  descripcionRecortada: string = null;
   constructor(private servicioNovela: NovelasService, private servicioAuth: AuthService,
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(){
   this._id = this.route.snapshot.paramMap.get('_id') ?? '';
-  this.directorioImagenes = Constantes.directorioImagenes;
   if(this._id == ''){
     this.redirigir();
   }
@@ -57,7 +53,9 @@ export class NovelaComponent {
     this.listaCapitulos = this.novela.listaCapitulos;
     if(this.novela.descripcion.length > 200){
       this.descripcionRecortada = this.novela.descripcion.slice(0,200);
-      console.log(this.novela.descripcion);
+    }
+    if(this.usuario && this.usuario._id == this.autor.autor_id){
+      this.esAutor = true;
     }
   });
 
@@ -75,6 +73,7 @@ export class NovelaComponent {
     }else{
       this.descripcionRecortada = this.novela.descripcion.slice(0,200);
     }
+    console.log(this.descripcionRecortada);
   }
   seguirNovela(){
       this.servicioNovela.seguirNovela(this._id).subscribe((data)=>{

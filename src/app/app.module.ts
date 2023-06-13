@@ -20,12 +20,16 @@ import { JwtInterceptorInterceptor } from './jwt-interceptor.interceptor';
 import { LoginComponent } from './paginas/login/login.component';
 import { MenuComponent } from './componentes/menu/menu.component';
 import { NovelaComponent } from './paginas/novela/novela.component';
-import { BarraBusquedaComponent } from './componentes/barra-busqueda/barra-busqueda.component';
 import { TablaCapitulosComponent } from './componentes/tabla-capitulos/tabla-capitulos.component';
 import { RegistroComponent } from './paginas/registro/registro.component';
 import { ModalErrorComponent } from './componentes/modal-error/modal-error.component';
 import { AltaNovelaComponent } from './paginas/alta-novela/alta-novela.component';
 import { CapituloComponent } from './paginas/capitulo/capitulo.component';
+import { AltaCapituloComponent } from './paginas/alta-capitulo/alta-capitulo.component';
+import { BotonScrollComponent } from './componentes/boton-scroll/boton-scroll.component';
+import { InicioComponent } from './paginas/inicio/inicio.component';
+import { ListadoNovelasComponent } from './paginas/listado-novelas/listado-novelas.component';
+import { TablaNovelasComponent } from './componentes/tabla-novelas/tabla-novelas.component';
 
 
 
@@ -35,13 +39,17 @@ import { CapituloComponent } from './paginas/capitulo/capitulo.component';
     MenuComponent,
     NovelaComponent,
     LoginComponent,
-    BarraBusquedaComponent,
     TablaCapitulosComponent,
     FechaHastaAhoraPipe,
     ModalErrorComponent,
     AltaNovelaComponent,
     RegistroComponent,
-    CapituloComponent
+    CapituloComponent,
+    AltaCapituloComponent,
+    BotonScrollComponent,
+    InicioComponent,
+    ListadoNovelasComponent,
+    TablaNovelasComponent
   ],
   imports: [
     BrowserModule,

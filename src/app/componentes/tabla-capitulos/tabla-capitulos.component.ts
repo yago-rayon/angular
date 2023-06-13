@@ -2,11 +2,9 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FechaHastaAhoraPipe } from 'src/app/pipes/fecha-hasta-ahora.pipe';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { DecimalPipe, NgFor } from '@angular/common';
-import { OnInit } from '@angular/core';
-
+import { Usuario } from 'src/app/interfaces/usuario';
+import { Constantes } from 'src/app/constantes/constantes';
+import { NovelasService } from 'src/app/servicios/novelas.service';
 @Component({
   selector: 'app-tabla-capitulos',
   templateUrl: './tabla-capitulos.component.html',
@@ -15,13 +13,15 @@ import { OnInit } from '@angular/core';
 export class TablaCapitulosComponent {
   @Input() listaCapitulos: Array<any>;
   @Input() _idNovela: string;
+  @Input() esAutor : boolean;
+  directorioIconos: string = Constantes.directorioIconos;
   listaFiltrada: Array<any>;
   listaPaginada: Array<any>;
   paginaActual: number = 1;
   numeroPaginas: number;
   listaPaginas: Array<number> = [];
   ordenLista: number = 1;
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute, private servicioNovela: NovelasService) { }
   ngOnInit() {
     this.filtrarLista(this.ordenLista);
     this.listaPaginada = this.listaCapitulos?.slice(0, 19);
@@ -36,9 +36,29 @@ export class TablaCapitulosComponent {
   redirigirCapitulo(numero) {
     this.router.navigate(['novela', this._idNovela,'capitulo',numero])
   }
+  editarCapitulo(numero) {
+    this.router.navigate(['novela', this._idNovela,'editarCapitulo',numero])
+  }
+  borrarCapitulo(numero) {
+    this.servicioNovela.borrarCapitulo(this._idNovela, numero)
+      .subscribe(
+        (respuesta) => {
+          this.listaCapitulos.splice(numero-1,1);
+          this.filtrarLista(1);
+        },
+        (error) => {
+          if (error.status == 401) {
+            localStorage.removeItem('jwt');
+            alert("Token expirado o inválido");
+            this.router.navigate(['/login']);
+          } else {
+            alert(error.error.error);
+          }
+        })
+  }
   paginarLista(pagina: number) {
     this.paginaActual = pagina;
-    this.listaPaginada = this.listaCapitulos.slice((Math.floor((pagina - 1) * 20)), (Math.floor((pagina * 20) - 1)));
+    this.listaPaginada = this.listaFiltrada.slice((Math.floor((pagina - 1) * 20)), (Math.floor((pagina * 20) - 1)));
   }
   filtrarLista(orden) {
     if (orden == 1) {

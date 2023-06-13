@@ -4,7 +4,7 @@ export interface Novela{
     titulo: string;
     descripcion: string;
     generos: Array<any>;
-    etiquetas: Array<string>;
+    etiquetas: Array<any>;
     fechaCreacion: Date;
     fechaUltimoCapitulo: Date;
     numeroCapitulos: number;

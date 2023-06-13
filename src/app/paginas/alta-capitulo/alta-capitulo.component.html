@@ -1,0 +1,46 @@
+<app-menu *ngIf="usuario" [usuario]="usuario"></app-menu>
+<app-menu *ngIf="!usuario"></app-menu>
+<div class="container bg-white" style="min-height: 100vh; background-size: cover;">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Index</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{usuario?.nickname}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Crear Novela</a></li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <section>
+
+        <div class="container px-4 px-lg-5">
+            <div class="card my-2">
+                <div class="card-header bg-secondary text-white">
+                    <h4>Titulo</h4>
+                </div>
+                <div class="form-group input-group">
+                    <input required minlength="4" maxlength="40" name="titulo" class="form-control" placeholder=""
+                        [(ngModel)]="capitulo.titulo" (ngModelChange)="novela.titulo = $event" #titulo="ngModel">
+
+                </div>
+            </div>
+            <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="alert alert-terciary">
+                El titulo debe tener entre 4 y 40 caracteres
+            </div>
+            <div class="card my-2">
+                <div class="card-header bg-secondary text-white">
+                    <h4>Contenido (Mínimo 300 caracteres)</h4>
+                </div>
+                <ckeditor [editor]="Editor" [(ngModel)]="capitulo.contenido"></ckeditor>
+            </div>
+            <div class="card my-2 col-3 mx-auto">
+                <button *ngIf="!numeroCapitulo" class="btn flex-shrink-0 btn-terciary btn-lg" type="button" (click)="enviarCapitulo()">Crear Capítulo
+                </button>
+                <button *ngIf="numeroCapitulo" class="btn flex-shrink-0 btn-terciary btn-lg" type="button" (click)="editarCapitulo()">Editar Capítulo
+                </button>
+            </div>
+        </div>
+    </section>
+
+</div>

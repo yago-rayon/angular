@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NovelasService } from 'src/app/servicios/novelas.service';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Constantes } from 'src/app/constantes/constantes';
 import { Usuario } from 'src/app/interfaces/usuario';
 @Component({
@@ -13,17 +13,17 @@ export class MenuComponent {
   tituloABuscar : string;
   logueado : boolean = false;
   directorioImagenes = Constantes.directorioImagenes;
-  constructor(servicioNovela : NovelasService){}
+  constructor( private router: Router){}
   ngOnInit(){
-    this.comprobarLogin();
-    let intervalo =setInterval(this.comprobarLogin, 15000);
-  }
-  comprobarLogin(){
-    if (localStorage.getItem('jwt')){
-      this.logueado=true;
+    if(this.usuario){
+      this.logueado = true;
     }
   }
-  buscarNovela(tituloABuscar){
-    console.log(tituloABuscar)
+  buscarNovela(){
+    this.router.navigate(['/novelas'],{ queryParams: { titulo: this.tituloABuscar}});
+  }
+  cerrarSesion(){
+    localStorage.removeItem('jwt');
+    window.location.reload();
   }
 }

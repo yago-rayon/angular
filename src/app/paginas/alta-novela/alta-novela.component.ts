@@ -1,9 +1,6 @@
 //Utilidades
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { OnInit } from '@angular/core';
 import { Constantes } from 'src/app/constantes/constantes';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //Servicios
@@ -39,7 +36,7 @@ export class AltaNovelaComponent {
   autor: any;
   usuario: Usuario;
   subscripcion: any;
-  _id: string;
+  _id: string = null;
   directorioImagenes: string;
   listaGeneros = Constantes.listaGeneros;
   listaEtiquetas = Constantes.listaEtiquetas;
@@ -49,7 +46,7 @@ export class AltaNovelaComponent {
 
   ngOnInit() {
 
-    this._id = this.route.snapshot.paramMap.get('_id') ?? '';
+    this._id = this.route.snapshot.paramMap.get('_id');
     this.directorioImagenes = Constantes.directorioImagenes;
     //Comprobación de usuario logueado
     this.servicioAuth.misDatos().subscribe(data => {
@@ -64,13 +61,21 @@ export class AltaNovelaComponent {
           alert("Token expirado o inválido");
           this.router.navigate(['login']);
         } else {
-          alert(error.error);
+          alert(error.error.error);
         }
       });
     if (this._id) {
       this.subscripcion = this.servicioNovela.consultarNovela(this._id).subscribe((data) => {
         this.novela = (data.novela as Novela);
         this.autor = this.novela.autor;
+        this.novela.generos = [];
+        data.novela.generos.forEach((genero) => {
+          this.novela.generos[genero] = true;
+        })
+        this.novela.etiquetas = [];
+        data.novela.etiquetas.forEach((etiqueta) => {
+          this.novela.etiquetas[etiqueta] = true;
+        })
       });
     }
 
@@ -85,60 +90,72 @@ export class AltaNovelaComponent {
   redirigir() {
     this.router.navigate(['index']);
   }
-  maxGeneros($event){
-    console.log(this.novela.generos);
+  maxGeneros($event) {
     let numeroGeneros = 0;
-    for(const genero in this.novela.generos){
-      if(this.novela.generos[genero]){
+    for (const genero in this.novela.generos) {
+      if (this.novela.generos[genero]) {
         numeroGeneros++;
       }
     }
-      if(numeroGeneros > 4){
-        (<HTMLInputElement>event.target).checked = false;
-        (<HTMLInputElement>event.target).dispatchEvent(new Event('change'))
-      }
+    if (numeroGeneros > 4) {
+      (<HTMLInputElement>event.target).checked = false;
+      (<HTMLInputElement>event.target).dispatchEvent(new Event('change'))
+    }
   }
-  maxEtiquetas(){
+  maxEtiquetas() {
     let numeroEtiquetas = 0;
-    for(const etiqueta in this.novela.etiquetas){
-      if(this.novela.etiquetas[etiqueta]){
+    for (const etiqueta in this.novela.etiquetas) {
+      if (this.novela.etiquetas[etiqueta]) {
         numeroEtiquetas++;
       }
     }
-      if(numeroEtiquetas > 8){
-        (<HTMLInputElement>event.target).checked = false;
-        (<HTMLInputElement>event.target).dispatchEvent(new Event('change'))
-      }
-  }
-  enviarNovela(){
-    let listaEtiquetas: Array<any>=[];
-    for(const etiqueta in this.novela.etiquetas){
-      if(this.novela.etiquetas[etiqueta]){
-        listaEtiquetas.push(etiqueta);
-      }
+    if (numeroEtiquetas > 8) {
+      (<HTMLInputElement>event.target).checked = false;
+      (<HTMLInputElement>event.target).dispatchEvent(new Event('change'))
     }
-    console.log(listaEtiquetas);
-    this.servicioNovela.altaNovela(this.novela,this.imagenASubir)
-    .subscribe(
-      respuesta => {
-        if (respuesta.code == 201) {
-          this.router.navigate(['/novela']);
-        } else {
-          alert("Ha ocurrido algún error al rellenar los campos");
-        }
-      },
-      error => {
-        if (error.status == 401) {
-          localStorage.removeItem('jwt');
-          alert("Token expirado o inválido");
-          this.router.navigate(['/login']);
-        }else{
-          alert(error.message);
-        }
-      })
+  }
+  enviarNovela() {
+    this.servicioNovela.altaNovela(this.novela, this.imagenASubir)
+      .subscribe(
+        respuesta => {
+          if (!respuesta.error) {
+            this.router.navigate(['/novela', respuesta._id]);
+          } else {
+            alert("Ha ocurrido algún error al rellenar los campos");
+          }
+        },
+        error => {
+          if (error.status == 401) {
+            localStorage.removeItem('jwt');
+            alert("Token expirado o inválido");
+            this.router.navigate(['/login']);
+          } else {
+            alert(error.error.error);
+          }
+        })
+  }
+  modificarNovela() {
+    this.servicioNovela.editarNovela(this.novela, this.imagenASubir)
+      .subscribe(
+        respuesta => {
+          if (!respuesta.error) {
+            this.router.navigate(['/novela', this._id]);
+          } else {
+            alert("Ha ocurrido algún error al rellenar los campos");
+          }
+        },
+        error => {
+          if (error.status == 401) {
+            localStorage.removeItem('jwt');
+            alert("Token expirado o inválido");
+            this.router.navigate(['/login']);
+          } else {
+            alert(error.error.error);
+          }
+        })
   }
 
-  subirImagen($event){
+  subirImagen($event) {
     this.imagenASubir = ($event.currentTarget as HTMLInputElement).files![0];
   }
 }
