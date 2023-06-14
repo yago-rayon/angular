@@ -5,7 +5,7 @@
         <div class="text-center my-5">
             <img class="img-fluid mb-4" src="{{directorioImagenes}}logoGDL.png" alt="..." />
             <h1 class="text-white fs-3 fw-bolder">Galaxia de Libros</h1>
-            <p class="text-white-50 mb-0">Universo de novelas amateur</p>
+            <p class="text-white mb-0">Universo de novelas amateur</p>
         </div>
     </header>
     <!-- Content section-->
@@ -28,11 +28,13 @@
         <div class="container my-5">
             <div class="row justify-content-center">
                 <div class="container col-lg-8">
-                    <h2 class="text-center mb-4">Aquí puedes empezar</h2>
+                    <h2 class="text-center mb-4">Aquí puedes empezar a usar la página</h2>
                    <div class="row col-12 mx-auto">
-                    <button class="btn btn-secondary rounded-0 col-4 mx-auto" type="button" routerLink="/buscar" >Empezar a Leer
+                    <button class="btn btn-secondary rounded-0 col-4 mx-auto" type="button" routerLink="/novelas" >Empezar a Leer
                     </button>
-                    <button class="btn btn-secondary rounded-0 col-4 float-end mx-auto" type="button" routerLink="/registro">Empezar a escribir
+                    <button *ngIf="usuario" class="btn btn-secondary rounded-0 col-4 float-end mx-auto" type="button" routerLink="/misNovelas">Empezar a escribir
+                    </button>
+                    <button *ngIf="!usuario" class="btn btn-secondary rounded-0 col-4 float-end mx-auto" type="button" routerLink="/registro">Empezar a escribir
                     </button>
                    </div>
                 </div>

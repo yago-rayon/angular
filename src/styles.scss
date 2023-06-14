@@ -10,7 +10,7 @@ $theme-colors: (
 @import 'bootstrap/scss/bootstrap';
 
 body{
-    background-image: url('http://localhost:3001/public/img/stars.jpg')
+    background-image: url('https://galaxia-libros-node.onrender.com/api/public/img/stars.jpg')
 }
 .fondo{
     background-color: $white;
