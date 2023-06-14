@@ -45,7 +45,10 @@ export class RegistroComponent {
   enviarFormulario() {
       this.servicioAuth.registro(this.nickname, this.email, this.password).subscribe({
           next: (response: any) => {
-              this.router.navigate(['/login'],{ queryParams: {'usuarioCreado' : true}});
+            if (response.data) {
+              localStorage.setItem('jwt', JSON.stringify(response.data.data));
+              this.router.navigate(['/inicio']);
+            }
           },
           error: (data: any) => { this.errorLogin = data.error.error },
       });

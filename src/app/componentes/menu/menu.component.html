@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-xxl navbar-dark bg-dark" aria-label="menu">
+<nav class="navbar navbar-expand-xxl navbar-dark bg-dark container-fluid" aria-label="menu">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" routerLink="/inicio"><img src="{{directorioImagenes}}/Logo-GDL-500x1000.png"
                 width="150px" alt="Galaxia de Libros"></a>
@@ -14,6 +14,7 @@
                         <li><a class="dropdown-item" routerLink="/novelas">Buscador</a></li>
                     </ul>
                 </li>
+                
                 <li *ngIf="!logueado" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">Identifícate</a>
@@ -21,12 +22,6 @@
                         <li><a class="dropdown-item" routerLink="/login">Login</a></li>
                         <li><a class="dropdown-item" routerLink="/registro">Registro</a></li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/mapaWeb">MapaWeb</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/accesibilidad">Accesibilidad</a>
                 </li>
                 <li *ngIf="logueado" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
@@ -36,6 +31,9 @@
                         <li><a class="dropdown-item" routerLink="/novelas/misNovelas">Mis novelas publicadas</a></li>
                         <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a></li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/mapaWeb">MapaWeb</a>
                 </li>
             </ul>
             <form class="d-flex">
