@@ -1,0 +1,77 @@
+<app-menu *ngIf="usuario" [usuario]="usuario"></app-menu>
+<app-menu *ngIf="!usuario"></app-menu>
+<div class="container bg-white" style="min-height: 100vh; background-size: cover;">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/inicio">Inicio</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:" class="active">Novelas</a></li>
+                </ol>
+            </nav>
+            <div class="row gx-4 gx-lg-5">
+            </div>
+        </div>
+    </section>
+    <section>
+        <h1 class="text-secondary text-center">Buscador de Novelas</h1>
+        <div class="row">
+            <button class="btn btn-terciary rounded-0 mx-auto" (click)="collapse.toggle()"
+            [attr.aria-expanded]="!buscadorColapsado">
+                <ng-container *ngIf="buscadorColapsado"> <img  src="{{directorioIconos}}arrow-down.svg" alt="Toggle buscador" /> Abrir Buscador </ng-container>
+                <ng-container *ngIf="!buscadorColapsado"> <img  src="{{directorioIconos}}arrow-up.svg" alt="Toggle buscador" /> Cerrar Buscador </ng-container>
+            </button></div>
+
+        <div class="container px-4 px-lg-5" #collapse="ngbCollapse" [(ngbCollapse)]="buscadorColapsado">
+            <div class="card">
+                <div class="card-header bg-secondary text-white text-center">
+                    <h4>Géneros</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <ng-container *ngFor="let genero of listaGeneros">
+                            <button class="btn btn-primary btn-block btn-sm col-5 my-1 mx-auto"
+                                [routerLink]="['/novelas']" [queryParams]="{'genero' : genero, 'pagina': 1}" value="{{genero}}"
+                                name="{{genero}}">{{genero}}</button>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-secondary text-white text-center">
+                    <h4>Etiquetas</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <ng-container *ngFor="let etiqueta of listaEtiquetas">
+                            <button class="btn btn-primary btn-block btn-sm col-5 my-1 mx-auto"
+                                [routerLink]="['/novelas']" [queryParams]="{'etiqueta' : etiqueta, 'pagina': 1}" value="{{etiqueta}}"
+                                name="{{etiqueta}}">{{etiqueta}}</button>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <app-tabla-novelas *ngIf="listaNovelas" [listaNovelas]="listaNovelas"></app-tabla-novelas>
+        <div>
+            <nav aria-label="Paginación de capítulos" *ngIf="listaPaginas">
+                <ul class="pagination" >
+                    <ng-container *ngFor="let pagina of listaPaginas; let esPrimero = first; let esUltimo = last">
+                        <li class="page-item secondary"  *ngIf="hayPaginaAnterior && esPrimero"
+                            [routerLink]="[]" [queryParams]="{'pagina': paginaAnterior}"><button class="page-link">
+                                < </button>
+                        </li>
+                        <li class="page-item secondary" [ngClass]="{'active': pagina==paginaActual}"
+                        [routerLink]="[]" [queryParams]="{'pagina': pagina}"><button class="page-link">{{pagina}}</button></li>
+                        <li class="page-item secondary" *ngIf="hayPaginaSiguiente && esUltimo"
+                        [routerLink]="[]" [queryParams]="{'pagina': paginaSiguiente}"><button class="page-link"> > </button></li>
+                    </ng-container>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+<app-boton-scroll></app-boton-scroll>

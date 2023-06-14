@@ -1,0 +1,42 @@
+<app-menu></app-menu>
+<section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-transparent"
+  style="min-height: 100vh; background-size: cover;">
+  <div class="container-fluid">
+    <div class="row  justify-content-center align-items-center d-flex-row text-center h-100 mx-auto">
+      <div class="col-12 col-md-6 col-lg-4" style="min-height:400px; min-width:400px">
+        <div class="card shadow mx-auto" >
+          <div class="card-body mx-auto my-5">
+            <h5 class="card-title mt-3 text-center my-3">Galaxia de Libros</h5>
+            <p class="text-center"> REGISTRO DE USUARIO</p>
+            <form (ngSubmit)="enviarFormulario()">
+              <div class="form-group input-group">
+                <input #validarNickname="ngModel" name="nickname" class="form-control" placeholder="Nickname"
+                  pattern="^[a-zA-Z0-9\-]{6,16}$" (ngModel)="nickname" [ngModelOptions]="{standalone: true}"
+                  (ngModelChange)="nickname = $event" (focus)="errorLogin = false">
+                <div *ngIf="errorLogin" class="alert alert-terciary">
+                  <small>El nickname debe tener entre 6 y 16 de estos caracteres a-z A-Z 0-9 - </small>
+                </div>
+              </div>
+
+              <div class="form-group input-group">
+
+                <input name="email" class="form-control" placeholder="Email" (ngModel)="email"
+                  [ngModelOptions]="{standalone: true}" (ngModelChange)="email = $event">
+              </div>
+              <div class="form-group input-group">
+                <input (ngModel)="password" [ngModelOptions]="{standalone: true}" (ngModelChange)="password = $event"
+                  class="form-control" type="password" placeholder="Contraseña" name="password">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block my-3"> Login </button>
+              </div>
+              <p class="text-center">¿Ya tienes cuenta?
+                <a href="javascript:" [routerLink]="['/login']">Loguéate</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

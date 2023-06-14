@@ -1,0 +1,68 @@
+<section class="mx-auto">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="col-md-11 col-lg-11 mx-auto">
+            <div class="container">
+                <ng-container *ngIf="esAutor">
+                    <button class="btn flex-shrink-0 btn-terciary rounded-0 btn-sm" type="button"
+                        [routerLink]="['/novela',_idNovela,'crearCapitulo']"><img alt="Editar Capítulo"
+                            src="{{directorioIconos}}plus-lg.svg"> Nuevo capítulo
+                    </button>
+                </ng-container>
+            </div>
+            <table class="table table-sm table-hover mx-auto">
+                <thead class="border border-bottom bg-secondary text-white">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" colspan="3">Titulo del Capítulo</th>
+                        <th scope="col" colspan="1" (click)="filtrarLista(ordenLista)"><a class="text-white"
+                                href="javascript:">Publicado</a></th>
+                        <th scope="col" colspan="1"><a class="text-white" href="javascript:">Acciones</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="listaFiltrada.length > 0;else sinDatos">
+                        <ng-container *ngFor="let capitulo of listaPaginada">
+                            <tr>
+                                <th scope="row">{{capitulo?.numero}}</th>
+                                <td (click)="redirigirCapitulo(capitulo?.numero)" colspan="3">
+                                    <a href="javascript:">{{capitulo?.titulo}}</a>
+                                </td>
+                                <td colspan="1" class="text-right">{{capitulo?.fechaCreacion | fechaHastaAhora}}</td>
+                                <td colspan="1" class="text-right">
+                                    <button class="btn btn-terciary" (click)="editarCapitulo(capitulo?.numero)"><img
+                                            alt="Editar Capítulo" src="{{directorioIconos}}pencil-fill.svg"></button>
+                                    <button class="btn btn-danger" (click)="borrarCapitulo(capitulo?.numero)"><img
+                                            alt="Borrar Capítulo" src="{{directorioIconos}}trash-fill.svg"></button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #sinDatos>
+                        <tr>
+                            <td colspan="5">
+                                <h5 class="text-center">La novela no tiene capítulos</h5>
+                            </td>
+
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+            <div>
+                <nav aria-label="Paginación de capítulos">
+                    <ul class="pagination">
+                        <ng-container *ngFor="let pagina of listaPaginas; first as esPrimero; last as esUltimo">
+                            <li class="page-item secondary" *ngIf="paginaActual>1 && esPrimero"
+                                (click)="paginarLista((paginaActual-1))"><button class="page-link">
+                                    < </button>
+                            </li>
+                            <li class="page-item secondary" [ngClass]="{'active': pagina==paginaActual}"
+                                (click)="paginarLista(pagina)"><button class="page-link">{{pagina}}</button></li>
+                            <li class="page-item bg-secondary" *ngIf="paginaActual<listaPaginas?.length && esUltimo"
+                                (click)="paginarLista((paginaActual+1))"><button class="page-link"> > </button></li>
+                        </ng-container>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>

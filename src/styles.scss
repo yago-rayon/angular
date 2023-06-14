@@ -1,4 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-
+$theme-colors: (
+    "primary": #6f42c1,
+    "secondary": #001f3f,
+    "danger": #ff4136,
+    "terciary": #ffd700,
+    "dark": #001f3f
+);
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+body{
+    background-image: url('http://localhost:3001/public/img/stars.jpg')
+}
+.fondo{
+    background-color: $white;
+}

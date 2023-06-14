@@ -1,0 +1,29 @@
+$primary: #6f42c1;
+$secondary: #001f3f;
+$danger: #ff4136;
+$terciary: #ffd700;
+$dark: #001f3f;
+.pagination > li > button {
+                    background-color: $secondary;
+                    color: $terciary;
+                }
+
+                .pagination>li>button:focus,
+                .pagination>li>button:hover,
+                .pagination>li>span:focus,
+                .pagination>li>span:hover {
+                    color: #5a5a5a;
+                    background-color: $terciary;
+                    border-color: $terciary;
+                }
+
+                .pagination>.active>button {
+                    color: $dark;
+                    background-color: $terciary !Important;
+                    border: solid 1px $terciary !Important;
+                }
+
+                .pagination>.active>button:hover {
+                    background-color: $terciary !Important;
+                    border: solid 1px $terciary;
+                }

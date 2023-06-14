@@ -1,35 +1,64 @@
 //Modulos
-import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbNavModule,NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgbModule, NgbNavModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs,'es');
+//Pipes
+import { FechaHastaAhoraPipe } from './pipes/fecha-hasta-ahora.pipe';
+
+//Servicios
+import { UsuariosService } from './servicios/usuarios.service';
+import { NovelasService } from './servicios/novelas.service';
+
 //Componentes
 import { AppComponent } from './app.component';
-import { CrearAutorComponent } from './componentes/crear-autor/crear-autor.component';
 import { JwtInterceptorInterceptor } from './jwt-interceptor.interceptor';
-import { RegistroComponent } from './componentes/registro/registro.component';
-import { LoginComponent } from './componentes/login/login.component';
-import { TablaAutoresComponent } from './componentes/tabla-autores/tabla-autores.component';
+import { LoginComponent } from './paginas/login/login.component';
 import { MenuComponent } from './componentes/menu/menu.component';
-//Servicios
-import { AutoresService } from './servicios/autores.service';
-import { TablaLibrosComponent } from './componentes/tabla-libros/tabla-libros.component';
-import { CrearLibroComponent } from './componentes/crear-libro/crear-libro.component';
+import { NovelaComponent } from './paginas/novela/novela.component';
+import { TablaCapitulosComponent } from './componentes/tabla-capitulos/tabla-capitulos.component';
+import { RegistroComponent } from './paginas/registro/registro.component';
+import { AltaNovelaComponent } from './paginas/alta-novela/alta-novela.component';
+import { CapituloComponent } from './paginas/capitulo/capitulo.component';
+import { AltaCapituloComponent } from './paginas/alta-capitulo/alta-capitulo.component';
+import { BotonScrollComponent } from './componentes/boton-scroll/boton-scroll.component';
+import { InicioComponent } from './paginas/inicio/inicio.component';
+import { ListadoNovelasComponent } from './paginas/listado-novelas/listado-novelas.component';
+import { TablaNovelasComponent } from './componentes/tabla-novelas/tabla-novelas.component';
+import { AuthService } from './servicios/auth.service';
+import { MisSeguidasComponent } from './paginas/mis-seguidas/mis-seguidas.component';
+import { MisNovelasComponent } from './paginas/mis-novelas/mis-novelas.component';
+import { MapaWebComponent } from './paginas/mapa-web/mapa-web.component';
+import { FooterComponent } from './componentes/footer/footer.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrearAutorComponent,
-    RegistroComponent,
-    LoginComponent,
-    TablaAutoresComponent,
     MenuComponent,
-    TablaLibrosComponent,
-    CrearLibroComponent
+    NovelaComponent,
+    LoginComponent,
+    TablaCapitulosComponent,
+    FechaHastaAhoraPipe,
+    AltaNovelaComponent,
+    RegistroComponent,
+    CapituloComponent,
+    AltaCapituloComponent,
+    BotonScrollComponent,
+    InicioComponent,
+    ListadoNovelasComponent,
+    TablaNovelasComponent,
+    MisSeguidasComponent,
+    MisNovelasComponent,
+    MapaWebComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -39,11 +68,16 @@ import { CrearLibroComponent } from './componentes/crear-libro/crear-libro.compo
     HttpClientModule,
     FormsModule,
     NgbModule,
+    CommonModule,
+    CKEditorModule,
     AppRoutingModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi: true},
-    AutoresService
+    {provide: LOCALE_ID, useValue: 'es'},
+    UsuariosService,
+    NovelasService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
