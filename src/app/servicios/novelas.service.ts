@@ -35,19 +35,19 @@ export class NovelasService {
   seguirNovela(id: string): Observable<any> {
     return this.http.put<any>(this.urlAPI + "/novela/seguir/" + id, '');
   }
-  consultarNovelasTitulo(titulo: string): Observable<any> {
-    return this.http.get<any>(this.urlAPI + "/novela/buscar/" + titulo);
+  consultarNovelasTitulo(titulo: string, pagina): Observable<any> {
+    return this.http.get<any>(this.urlAPI + "/novela/buscar/" + titulo + '?pagina='+pagina);
   }
-  consultarNovelasGenero(genero: string): Observable<any> {
-    return this.http.get<any>(this.urlAPI + "/novela/buscarGenero/" + genero);
+  consultarNovelasGenero(genero: string, pagina): Observable<any> {
+    return this.http.get<any>(this.urlAPI + "/novela/buscarGenero/" + genero + '?pagina='+pagina);
   }
-  consultarNovelasEtiqueta(etiqueta: string): Observable<any> {
-    return this.http.get<any>(this.urlAPI + "/novela/buscarEtiqueta/" + etiqueta);
+  consultarNovelasEtiqueta(etiqueta: string, pagina): Observable<any> {
+    return this.http.get<any>(this.urlAPI + "/novela/buscarEtiqueta/" + etiqueta + '?pagina='+pagina);
   }
-  consultarNovelasSeguidas(): Observable<any> {
+  misSeguidas(): Observable<any> {
     return this.http.get(this.urlAPI + "/novela/seguidas");
   }
-  consultarNovelasPublicadas(): Observable<any> {
+  misNovelas(): Observable<any> {
     return this.http.get(this.urlAPI + "/novela/publicadas");
   }
   altaNovela(novela: Novela, imagenASubir?: File): Observable<any> {
@@ -107,7 +107,7 @@ export class NovelasService {
     }
     return this.http.put(this.urlAPI + "/novela/" + novela._id, formData)
   }
-  borrarNovela(novela: any): Observable<any> {
-    return this.http.delete(this.urlAPI + "/novela/" + novela._id)
+  borrarNovela(_id: any): Observable<any> {
+    return this.http.delete(this.urlAPI + "/novela/" + _id)
   }
 }

@@ -5,9 +5,10 @@
         <div class="container px-4 px-lg-5">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Index</a></li>
-                    <li class="breadcrumb-item"><a href="#">{{usuario?.nickname}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Crear Novela</a></li>
+                    <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+                    <li class="breadcrumb-item"><a [routerLink]="['/novelas']">Novelas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a [routerLink]="['/novela',this._id]">{{novela?.titulo}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="javascript:">Crear Capítulo</a></li>
                 </ol>
             </nav>
         </div>
@@ -33,6 +34,9 @@
                     <h4>Contenido (Mínimo 300 caracteres)</h4>
                 </div>
                 <ckeditor [editor]="Editor" [(ngModel)]="capitulo.contenido"></ckeditor>
+            </div>
+            <div *ngIf="errorCampos" class="alert alert-terciary">
+                El contenido debe tener mínimo 300 caracteres
             </div>
             <div class="card my-2 col-3 mx-auto">
                 <button *ngIf="!numeroCapitulo" class="btn flex-shrink-0 btn-terciary btn-lg" type="button" (click)="enviarCapitulo()">Crear Capítulo

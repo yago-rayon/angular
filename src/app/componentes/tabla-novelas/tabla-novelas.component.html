@@ -4,24 +4,56 @@
             <table class="table table-sm table-hover mx-auto">
                 <thead class="border border-bottom bg-secondary text-white">
                     <tr>
-                        <th scope="col" colspan="3">Portada</th>
-                        <th scope="col" colspan="3">Datos de novela</th>
-                        <th scope="col" colspan="3" (click)="filtrarLista(ordenLista)"><a class="text-white"
-                                href="javascript:">Publicado</a></th>
+                        <th scope="col" colspan="2">Portada</th>
+                        <th scope="col" colspan="6" class="text-center">Datos de novela</th>
+                        <th scope="col" colspan="2" class="d-none d-md-table-cell" (click)="filtrarLista(ordenLista)"><a class="text-white"
+                                href="javascript:">Publicada</a></th>
                     </tr>
                 </thead>
                 <tbody>
                     <ng-container *ngIf="listaFiltrada.length > 0;else sinDatos">
                         <ng-container *ngFor="let novela of listaFiltrada">
                             <tr>
-                                <td [routerLink]="['/novela',novela?._id]" colspan="3">
-                                    <img class="" src="{{directorioImagenes}}{{novela?.imagen}}"
+                                <td [routerLink]="['/novela',novela?._id]" colspan="2">
+                                    <img class="" style="max-width: 100px;"
+                                        src="{{directorioImagenes}}{{novela?.imagen}}"
                                         alt="Portada de {{novela?.titulo}}" />
                                 </td>
-                                <td [routerLink]="['/novela',novela?._id]" colspan="3">
-                                    <a href="javascript:">{{novela?.titulo}}</a>
+                                <td colspan="6">
+                                    <h2 class="">
+                                        <a [routerLink]="['/novela',novela?._id]" class="text-decoration-none">{{novela?.titulo}}</a>
+                                    </h2>
+                                    <div class="mb-1">
+                                        <span class="d-flex flex-wrap">
+                                            <ng-container *ngFor="let genero of novela?.generos">
+                                                <div class="">
+                                                    <a class="text-decoration-none"
+                                                        [routerLink]="['/novelas']"
+                                                        [queryParams]="{'genero' : genero, 'pagina': 1}"><span class="badge bg-primary">{{genero}}</span></a>
+                                                </div>
+                                            </ng-container>
+                                        </span>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-6 uppercase bold font-blue-dark">
+                                            <img src="{{directorioIconos}}eye-fill.svg" alt="Visitas" />
+                                            <span class="mx-1">{{novela?.visitas}} visitas</span>
+                                        </div>
+                                        <div class="col-sm-6 uppercase bold font-blue-dark">
+                                            <img src="{{directorioIconos}}person-circle.svg" alt="Autor" />
+                                            <span class="mx-1">{{novela?.autor?.autorNickname}}</span>
+                                        </div>
+                                        <div class="col-sm-6 uppercase bold font-blue-dark">
+                                            <img src="{{directorioIconos}}book-fill.svg" alt="Capitulos" />
+                                            <span class="mx-1">{{novela?.numeroCapitulos}} capítulo<span *ngIf="novela?.numeroCapitulos>1">s</span></span>
+                                        </div>
+                                        <div class="col-sm-6 uppercase bold font-blue-dark">
+                                            <img src="{{directorioIconos}}calendar-check-fill.svg" alt="Ultimo Capitulo" />
+                                            <span class="mx-1">{{novela?.fechaUltimoCapitulo | date : undefined : undefined : 'es-ES' }}</span>
+                                        </div>
+                                    </div>
                                 </td>
-                                <td colspan="1" class="text-right">{{novela?.fechaCreacion | fechaHastaAhora}}</td>
+                                <td colspan="1" class="text-right d-none d-md-table-cell">{{novela?.fechaCreacion | fechaHastaAhora}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>

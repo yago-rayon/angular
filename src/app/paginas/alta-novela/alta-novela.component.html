@@ -5,9 +5,10 @@
         <div class="container px-4 px-lg-5">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Index</a></li>
-                    <li class="breadcrumb-item"><a href="#">{{usuario?.nickname}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Crear Novela</a></li>
+                    <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+                    <li class="breadcrumb-item"><a [routerLink]="['/misNovelas']">Mis novelas</a></li>
+                    <li class="breadcrumb-item"><a [routerLink]="['/novelas/misNovelas']">Mis novelas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="javascript:">Crear Novela</a></li>
                 </ol>
             </nav>
         </div>
@@ -43,13 +44,16 @@
                 </div>
             </div>
             <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="alert alert-terciary">
-                El titulo debe tener entre 4 y 30 caracteres
+                El titulo debe tener entre 4 y 40 caracteres
             </div>
             <div class="card my-2">
                 <div class="card-header bg-secondary text-white">
                     <h4>Descripción</h4>
                 </div>
                 <ckeditor [editor]="Editor" [(ngModel)]="novela.descripcion"></ckeditor>
+            </div>
+            <div *ngIf="errorCampos" class="alert alert-terciary">
+                La descripción debe tener mínimo 300 caracteres
             </div>
             <div class="card">
                 <div class="card-header bg-secondary text-white">

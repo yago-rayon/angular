@@ -1,12 +1,14 @@
 //Modulos
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { NgbModule, NgbNavModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {CKEditorModule} from '@ckeditor/ckeditor5-angular'
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs,'es');
 //Pipes
 import { FechaHastaAhoraPipe } from './pipes/fecha-hasta-ahora.pipe';
 
@@ -22,7 +24,6 @@ import { MenuComponent } from './componentes/menu/menu.component';
 import { NovelaComponent } from './paginas/novela/novela.component';
 import { TablaCapitulosComponent } from './componentes/tabla-capitulos/tabla-capitulos.component';
 import { RegistroComponent } from './paginas/registro/registro.component';
-import { ModalErrorComponent } from './componentes/modal-error/modal-error.component';
 import { AltaNovelaComponent } from './paginas/alta-novela/alta-novela.component';
 import { CapituloComponent } from './paginas/capitulo/capitulo.component';
 import { AltaCapituloComponent } from './paginas/alta-capitulo/alta-capitulo.component';
@@ -30,6 +31,11 @@ import { BotonScrollComponent } from './componentes/boton-scroll/boton-scroll.co
 import { InicioComponent } from './paginas/inicio/inicio.component';
 import { ListadoNovelasComponent } from './paginas/listado-novelas/listado-novelas.component';
 import { TablaNovelasComponent } from './componentes/tabla-novelas/tabla-novelas.component';
+import { AuthService } from './servicios/auth.service';
+import { MisSeguidasComponent } from './paginas/mis-seguidas/mis-seguidas.component';
+import { MisNovelasComponent } from './paginas/mis-novelas/mis-novelas.component';
+import { MapaWebComponent } from './paginas/mapa-web/mapa-web.component';
+import { FooterComponent } from './componentes/footer/footer.component';
 
 
 
@@ -41,7 +47,6 @@ import { TablaNovelasComponent } from './componentes/tabla-novelas/tabla-novelas
     LoginComponent,
     TablaCapitulosComponent,
     FechaHastaAhoraPipe,
-    ModalErrorComponent,
     AltaNovelaComponent,
     RegistroComponent,
     CapituloComponent,
@@ -49,7 +54,11 @@ import { TablaNovelasComponent } from './componentes/tabla-novelas/tabla-novelas
     BotonScrollComponent,
     InicioComponent,
     ListadoNovelasComponent,
-    TablaNovelasComponent
+    TablaNovelasComponent,
+    MisSeguidasComponent,
+    MisNovelasComponent,
+    MapaWebComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -65,8 +74,10 @@ import { TablaNovelasComponent } from './componentes/tabla-novelas/tabla-novelas
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi: true},
+    {provide: LOCALE_ID, useValue: 'es'},
     UsuariosService,
-    NovelasService
+    NovelasService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

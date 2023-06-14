@@ -21,6 +21,7 @@ export class AltaCapituloComponent {
     titulo: '',
     contenido: ''
   }
+  errorCampos: any= false;
   datos: any;
   novela: Novela;
   autor: any;
@@ -74,16 +75,23 @@ export class AltaCapituloComponent {
           if (this.novela.listaCapitulos[this.numeroCapitulo - 1]) {
             this.capitulo.titulo = (this.novela.listaCapitulos[this.numeroCapitulo - 1] as any).titulo;
             this.capitulo.contenido = (this.novela.listaCapitulos[this.numeroCapitulo - 1] as any).contenido;
+          }else{
+            this.router.navigate(['/novela',this._id]);
           }
         }
-        
-      });
+      },
+      (error)=>{
+        this.router.navigate(['novelas']);
+      }
+      );
     }
   }
 
   ngOnDestroy() {
     if (this.subscripcion) {
       this.subscripcion.unsubscribe();
+    }
+    if (this.subscripcionUsuario) {
       this.subscripcionUsuario.unsubscribe();
     }
 
@@ -103,7 +111,7 @@ export class AltaCapituloComponent {
             alert("Token expirado o inválido");
             this.router.navigate(['/login']);
           } else {
-            alert(error.error.error);
+            this.errorCampos = true;
           }
         })
   }
@@ -119,7 +127,7 @@ export class AltaCapituloComponent {
             alert("Token expirado o inválido");
             this.router.navigate(['/login']);
           } else {
-            alert(error.message);
+            this.errorCampos = true;
           }
         })
   }

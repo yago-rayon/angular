@@ -10,6 +10,9 @@ import { NovelaComponent } from './paginas/novela/novela.component';
 import { AltaCapituloComponent } from './paginas/alta-capitulo/alta-capitulo.component';
 import { InicioComponent } from './paginas/inicio/inicio.component';
 import { ListadoNovelasComponent } from './paginas/listado-novelas/listado-novelas.component';
+import { MisNovelasComponent } from './paginas/mis-novelas/mis-novelas.component';
+import { MisSeguidasComponent } from './paginas/mis-seguidas/mis-seguidas.component';
+import { MapaWebComponent } from './paginas/mapa-web/mapa-web.component';
 //Rutas
 const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
@@ -18,14 +21,15 @@ const routes: Routes = [
   { path: 'novela/crear', component: AltaNovelaComponent },
   { path: 'novela/editar/:_id', component: AltaNovelaComponent },
   { path: 'novelas', component: ListadoNovelasComponent },
-  //   {path: 'crearAutor/:id', component: CrearAutorComponent},
-  //   {path: 'libros', component: TablaLibrosComponent},
-  //   {path: 'crearLibro', component: CrearLibroComponent},
+  { path: 'novelas/misNovelas', component: MisNovelasComponent },
+  { path: 'novelas/misSeguidas', component: MisSeguidasComponent },
   { path: 'novela/:_id', component: NovelaComponent },
   { path: 'novela/:_id/capitulo/:numero', component: CapituloComponent },
   { path: 'novela/:_id/crearCapitulo', component: AltaCapituloComponent },
   { path: 'novela/:_id/editarCapitulo/:numero', component: AltaCapituloComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: 'mapaWeb', component: MapaWebComponent },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: '**', redirectTo: 'inicio' }
 ];
 
 @NgModule({

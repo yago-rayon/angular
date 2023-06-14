@@ -37,13 +37,15 @@ export class RegistroComponent {
   }
 
   ngOnDestroy() {
-      this.subscripcionUsuario.unsubscribe();
+      if (this.subscripcionUsuario) {
+        this.subscripcionUsuario.unsubscribe();
+      }
   }
 
   enviarFormulario() {
       this.servicioAuth.registro(this.nickname, this.email, this.password).subscribe({
           next: (response: any) => {
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'],{ queryParams: {'usuarioCreado' : true}});
           },
           error: (data: any) => { this.errorLogin = data.error.error },
       });

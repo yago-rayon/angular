@@ -19,7 +19,9 @@ export class TablaNovelasComponent {
   ngOnInit() {
     this.filtrarLista(this.ordenLista);
   }
-
+  ngOnChanges() {
+    this.filtrarLista(this.ordenLista);
+  }
   filtrarLista(orden) {
     if (orden == 1) {
       this.listaFiltrada = this.listaNovelas.sort((a, b) => {

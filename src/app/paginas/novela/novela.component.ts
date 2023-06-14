@@ -49,6 +49,9 @@ export class NovelaComponent {
   });
   this.subscripcion = this.servicioNovela.consultarNovela(this._id).subscribe((data)=>{
     this.novela = (data.novela as Novela);
+    if(!this.novela){
+      this.router.navigate(['novelas']);
+    }
     this.autor = this.novela.autor;
     this.listaCapitulos = this.novela.listaCapitulos;
     if(this.novela.descripcion.length > 200){
@@ -57,15 +60,29 @@ export class NovelaComponent {
     if(this.usuario && this.usuario._id == this.autor.autor_id){
       this.esAutor = true;
     }
-  });
-
+  },
+  (error)=>{
+    this.router.navigate(['novelas']);
+  }
+  );
   }
 
   ngOnDestroy(){
-    this.subscripcion.unsubscribe();
+    if (this.subscripcion) {
+      this.subscripcion.unsubscribe();
+    }
   }
   redirigir(){
-    this.router.navigate(['index']);
+    this.router.navigate(['novelas']);
+  }
+  borrarNovela(){
+    this.servicioNovela.borrarNovela(this._id).subscribe((data)=>{
+      this.redirigir();
+    },
+    (error)=>{
+      alert('Error al borrar la novela '+ error.error.error);
+    }
+    );
   }
   mostrarDescripcion(){
     if(this.descripcionRecortada){
@@ -73,7 +90,6 @@ export class NovelaComponent {
     }else{
       this.descripcionRecortada = this.novela.descripcion.slice(0,200);
     }
-    console.log(this.descripcionRecortada);
   }
   seguirNovela(){
       this.servicioNovela.seguirNovela(this._id).subscribe((data)=>{

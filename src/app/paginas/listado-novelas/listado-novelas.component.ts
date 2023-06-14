@@ -10,13 +10,13 @@ import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-listado-novelas',
   templateUrl: './listado-novelas.component.html',
-  providers: [ NgbCollapse ],
+  providers: [NgbCollapse],
   styleUrls: ['./listado-novelas.component.scss']
 })
 export class ListadoNovelasComponent {
   datos: any = {
-    etiquetas : [],
-    generos : [],
+    etiquetas: [],
+    generos: [],
     pagina: 1,
     limite: 20
   };
@@ -36,6 +36,14 @@ export class ListadoNovelasComponent {
   directorioIconos: string = Constantes.directorioIconos;
   descripcionRecortada: string = null;
   buscadorColapsado: boolean = true;
+  parametroActual: any;
+  paginaActual: any;
+  numeroPaginas: number;
+  listaPaginas: any;
+  hayPaginaSiguiente: boolean = false;
+  paginaSiguiente: number = null;
+  hayPaginaAnterior: boolean = false;
+  paginaAnterior: number = null;
   constructor(private servicioNovela: NovelasService, private servicioAuth: AuthService,
     private router: Router, private route: ActivatedRoute, private colapsable: NgbCollapse) { }
 
@@ -44,43 +52,85 @@ export class ListadoNovelasComponent {
       this.tituloNovela = params['titulo'];
       this.genero = params['genero'];
       this.etiqueta = params['etiqueta'];
+      this.paginaActual = params['pagina'] || 1;
       if (this.tituloNovela) {
-        this.subscripcion = this.servicioNovela.consultarNovelasTitulo(this.tituloNovela).subscribe((data) => {
-          this.listaNovelas = data.docs;
-        },
-        (error)=>{
-          this.listaNovelas = null;
-        });
-      }else if(this.genero){
-        this.subscripcion = this.servicioNovela.consultarNovelasGenero(this.genero).subscribe((data) => {
-          this.listaNovelas = data.docs;
-        },
-        (error)=>{
-          this.listaNovelas = null;
-        });
-      }else if(this.etiqueta){
-        this.subscripcion = this.servicioNovela.consultarNovelasEtiqueta(this.etiqueta).subscribe((data) => {
-          this.listaNovelas = data.docs;
-        },
-        (error)=>{
-          this.listaNovelas = null;
-        });
-        }
-      });
+        this.buscarPorTitulo();
+      }
+      else if (this.genero) {
+        this.buscarPorGenero();
+      } else if (this.etiqueta) {
+        this.buscarPorEtiqueta();
+      }
+    });
     this.subscripcionUsuario = this.servicioAuth.misDatos().subscribe((data) => {
       this.usuario = (data.usuario as Usuario);
     });
   }
 
-  ngOnDestroy() {
-    this.subscripcion.unsubscribe();
+  buscarPorTitulo() {
+    this.subscripcion = this.servicioNovela.consultarNovelasTitulo(this.tituloNovela, this.paginaActual).subscribe((data) => {
+      this.listaNovelas = data.novelas.docs;
+      this.parametroActual = this.tituloNovela;
+      this.hayPaginaAnterior = data.novelas.hasNextPage;
+      this.paginaAnterior = data.novelas.prevPage;
+      this.hayPaginaSiguiente = data.novelas.hasPrevPage;
+      this.paginaSiguiente = data.novelas.nextPage;
+      this.numeroPaginas = data.novelas.totalPages;
+      this.listaPaginas = Array.from({length:this.numeroPaginas},(valor,indice)=>indice+1);
+    },
+      (error) => {
+        this.listaNovelas = null;
+      });
+  }
+
+buscarPorGenero(){
+  this.subscripcion = this.servicioNovela.consultarNovelasGenero(this.genero, this.paginaActual).subscribe((data) => {
+      this.listaNovelas = data.novelas.docs;
+      this.parametroActual = this.genero;
+      this.hayPaginaAnterior = data.novelas.hasNextPage;
+      this.paginaAnterior = data.novelas.prevPage;
+      this.hayPaginaSiguiente = data.novelas.hasPrevPage;
+      this.paginaSiguiente = data.novelas.nextPage;
+      this.numeroPaginas = data.novelas.totalPages;
+      this.listaPaginas = Array.from({length:this.numeroPaginas},(valor,indice)=>indice+1);
+  },
+    (error) => {
+      this.listaNovelas = null;
+    });
+}
+
+buscarPorEtiqueta(){
+  this.subscripcion = this.servicioNovela.consultarNovelasEtiqueta(this.etiqueta, this.paginaActual).subscribe((data) => {
+    this.listaNovelas = data.novelas.docs;
+    this.parametroActual = this.etiqueta;
+      this.hayPaginaAnterior = data.novelas.hasNextPage;
+      this.paginaAnterior = data.novelas.prevPage;
+      this.hayPaginaSiguiente = data.novelas.hasPrevPage;
+      this.paginaSiguiente = data.novelas.nextPage;
+      this.numeroPaginas = data.novelas.totalPages;
+      this.listaPaginas = Array.from({length:this.numeroPaginas},(valor,indice)=>indice+1);
+  },
+    (error) => {
+      this.listaNovelas = null;
+    });
+    
+}
+
+ngOnDestroy() {
+  if (this.subscripcionParametros) {
     this.subscripcionParametros.unsubscribe();
+  }
+  if (this.subscripcion) {
+    this.subscripcion.unsubscribe();
+  }
+  if (this.subscripcionUsuario) {
     this.subscripcionUsuario.unsubscribe();
   }
-  redirigir() {
-    this.router.navigate(['inicio']);
-  }
-  mostrarBuscador(){
-    this.colapsable.animation(true);
-  }
+}
+redirigir() {
+  this.router.navigate(['inicio']);
+}
+mostrarBuscador(){
+  this.colapsable.animation(true);
+}
 }

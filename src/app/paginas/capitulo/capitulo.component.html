@@ -5,11 +5,10 @@
         <div class="container px-4 px-lg-5">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Index</a></li>
-                    <li class="breadcrumb-item"><a href="#">Novela</a></li>
+                    <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+                    <li class="breadcrumb-item"><a [routerLink]="['/novelas']">Novelas</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="javascript:" [routerLink]="['/novela',this._id]">{{novela?.titulo}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Capitulo {{numeroCapitulo}}</a>
-                    </li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Capitulo {{numeroCapitulo}}</a></li>
                 </ol>
             </nav>
             <div class="row gx-4 gx-lg-5">

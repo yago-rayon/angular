@@ -52,6 +52,9 @@ export class CapituloComponent {
       this.autor = this.novela.autor;
       this.listaCapitulos = this.novela.listaCapitulos;
       this.capitulo = this.listaCapitulos[this.numeroCapitulo-1];
+      if(!this.capitulo){
+        this.router.navigate(['/novela',this._id]);
+      }
     },(err) => {
       if(!this.novela){
         this.redirigir();
@@ -61,11 +64,16 @@ export class CapituloComponent {
   }
 
   ngOnDestroy() {
-    this.subscripcion.unsubscribe();
-    this.subscripcionUsuario.unsubscribe();
+    if (this.subscripcion) {
+      this.subscripcion.unsubscribe();
+    }
+    if (this.subscripcionUsuario) {
+      this.subscripcionUsuario.unsubscribe();
+    }
+
   }
   redirigir() {
-    this.router.navigate(['login']);
+    this.router.navigate(['novelas']);
   }
   cambiarCapitulo(numero){
     this.numeroCapitulo -= numero;

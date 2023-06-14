@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalErrorComponent } from './modal-error.component';
+import { MapaWebComponent } from './mapa-web.component';
 
-describe('ModalErrorComponent', () => {
-  let component: ModalErrorComponent;
-  let fixture: ComponentFixture<ModalErrorComponent>;
+describe('MapaWebComponent', () => {
+  let component: MapaWebComponent;
+  let fixture: ComponentFixture<MapaWebComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalErrorComponent ]
+      declarations: [ MapaWebComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ModalErrorComponent);
+    fixture = TestBed.createComponent(MapaWebComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,11 +6,11 @@ import { Constantes } from 'src/app/constantes/constantes';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Usuario } from 'src/app/interfaces/usuario';
 @Component({
-  selector: 'app-inicio',
-  templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.scss']
+  selector: 'app-mapa-web',
+  templateUrl: './mapa-web.component.html',
+  styleUrls: ['./mapa-web.component.scss']
 })
-export class InicioComponent {
+export class MapaWebComponent {
   directorioImagenes = Constantes.directorioImagenes;
   subscripcionUsuario: any;
   usuario: Usuario;
@@ -36,5 +36,4 @@ export class InicioComponent {
       this.subscripcionUsuario.unsubscribe();
     }
   }
-
 }

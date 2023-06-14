@@ -5,6 +5,9 @@
         <div class="col-12 col-md-6 col-lg-4  h-100 " style="min-height:400px; min-width:400px">
           <div class="card shadow" >
             <div class="card-body mx-auto my-5">
+              <div *ngIf="usuarioCreado" class="alert alert-success">
+                <small> ¡Usuario creado! Puedes loguearte </small>
+              </div>
               <h5 class="card-title mt-3 text-center my-3">Galaxia de Libros</h5>
               <p class="text-center">LOGIN DE USUARIO</p>
               <form (ngSubmit)="enviarFormulario()">
@@ -30,4 +33,3 @@
       </div>
     </div>
  </section>
- <app-modal-error [errorLogin]="errorLogin" (pasarCerrarModal)="errorLogin = $event" *ngIf="errorLogin"></app-modal-error>

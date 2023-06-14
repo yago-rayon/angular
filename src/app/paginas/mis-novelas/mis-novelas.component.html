@@ -1,0 +1,25 @@
+<app-menu *ngIf="usuario" [usuario]="usuario"></app-menu>
+<div class="container bg-white" style="min-height: 100vh; background-size: cover;">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/inicio">Index</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:" class="active">Mis Novelas</a></li>
+                </ol>
+            </nav>
+            <h1 class="text-secondary text-center">Mis Novelas</h1>
+            <div class="row gx-4 gx-lg-5 mx-auto">
+                <button class="btn flex-shrink-0 btn-secondary col-3 mx-auto" type="button"
+                                [routerLink]="['/novela/crear']">
+                                Crear Novela
+                </button>
+            </div>
+        </div>
+    </section>
+    <section>
+        <app-tabla-novelas *ngIf="listaNovelas" [listaNovelas]="listaNovelas"></app-tabla-novelas>
+        <h2 *ngIf="!listaNovelas" class="text-center"> Todavía no tienes novelas, ¡anímate!</h2>
+    </section>
+</div>
+<app-boton-scroll></app-boton-scroll>

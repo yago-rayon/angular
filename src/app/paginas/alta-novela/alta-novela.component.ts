@@ -33,6 +33,7 @@ export class AltaNovelaComponent {
     puntuacion: null,
     imagen: 'placeholder.jpg'
   };
+  errorCampos :boolean= false;
   autor: any;
   usuario: Usuario;
   subscripcion: any;
@@ -55,13 +56,13 @@ export class AltaNovelaComponent {
         this.router.navigate(['login']);
       }
     },
-      error => {
+      (error) => {
         if (error.status == 401) {
           localStorage.removeItem('jwt');
           alert("Token expirado o inválido");
           this.router.navigate(['login']);
         } else {
-          alert(error.error.error);
+          this.router.navigate(['/login']);
         }
       });
     if (this._id) {
@@ -76,6 +77,14 @@ export class AltaNovelaComponent {
         data.novela.etiquetas.forEach((etiqueta) => {
           this.novela.etiquetas[etiqueta] = true;
         })
+      },
+      (error) => {
+        if (error.status == 401) {
+          localStorage.removeItem('jwt');
+          alert("Token expirado o inválido");
+          this.router.navigate(['login']);
+        } else {
+        }
       });
     }
 
@@ -117,40 +126,40 @@ export class AltaNovelaComponent {
   enviarNovela() {
     this.servicioNovela.altaNovela(this.novela, this.imagenASubir)
       .subscribe(
-        respuesta => {
+        (respuesta) => {
           if (!respuesta.error) {
             this.router.navigate(['/novela', respuesta._id]);
           } else {
             alert("Ha ocurrido algún error al rellenar los campos");
           }
         },
-        error => {
+        (error)=> {
           if (error.status == 401) {
             localStorage.removeItem('jwt');
             alert("Token expirado o inválido");
             this.router.navigate(['/login']);
           } else {
-            alert(error.error.error);
+            this.errorCampos = true;
           }
         })
   }
   modificarNovela() {
     this.servicioNovela.editarNovela(this.novela, this.imagenASubir)
       .subscribe(
-        respuesta => {
+        (respuesta) => {
           if (!respuesta.error) {
             this.router.navigate(['/novela', this._id]);
           } else {
-            alert("Ha ocurrido algún error al rellenar los campos");
+            this.errorCampos = true;
           }
         },
-        error => {
+        (error) => {
           if (error.status == 401) {
             localStorage.removeItem('jwt');
             alert("Token expirado o inválido");
             this.router.navigate(['/login']);
           } else {
-            alert(error.error.error);
+            this.errorCampos = true;
           }
         })
   }
