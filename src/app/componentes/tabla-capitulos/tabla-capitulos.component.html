@@ -16,7 +16,7 @@
                         <th scope="col" colspan="3">Titulo del Capítulo</th>
                         <th scope="col" colspan="1" (click)="filtrarLista(ordenLista)"><a class="text-white"
                                 href="javascript:">Publicado</a></th>
-                        <th scope="col" colspan="1"><a class="text-white" href="javascript:">Acciones</a></th>
+                        <th scope="col" colspan="1"><a class="text-white" href="javascript:" *ngIf="esAutor">Acciones</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@
                                     <a href="javascript:">{{capitulo?.titulo}}</a>
                                 </td>
                                 <td colspan="1" class="text-right">{{capitulo?.fechaCreacion | fechaHastaAhora}}</td>
-                                <td colspan="1" class="text-right">
+                                <td colspan="1" class="text-right" *ngIf="esAutor">
                                     <button class="btn btn-terciary" (click)="editarCapitulo(capitulo?.numero)"><img
                                             alt="Editar Capítulo" src="{{directorioIconos}}pencil-fill.svg"></button>
                                     <button class="btn btn-danger" (click)="borrarCapitulo(capitulo?.numero)"><img
